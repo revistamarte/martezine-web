@@ -1,0 +1,22 @@
+{
+  "name": "martezine-web",
+  "version": "1.0.0",
+  "description": "Site da Revista Marte",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/revistamarte/martezine-web.git"
+  },
+  "author": "victovito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/revistamarte/martezine-web/issues"
+  },
+  "homepage": "https://github.com/revistamarte/martezine-web#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
