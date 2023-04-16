@@ -4,7 +4,9 @@
   "description": "Site da Revista Marte",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "start-react": "cd ./client/ & npm start",
+    "build-react": "cd ./client/ & npm run build"
   },
   "repository": {
     "type": "git",
