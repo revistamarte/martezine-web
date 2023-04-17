@@ -3,11 +3,6 @@
 for /F %%A in ('ECHO prompt $E^| cmd') do set "ESC=%%A"
 echo %ESC%[91moi, %ESC%[0m%ESC%[41mbem vindos à marte.%ESC%[0m
 call npm i
-cd client
-call npm i
-cd ..
-call npm run build-react
+call npm run build-client
 cd server
-call npm i
-start "" http://localhost:8080
-call npm start
+call npm run start -- --open

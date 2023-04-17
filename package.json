@@ -5,9 +5,11 @@
   "description": "Site da Revista Marte",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "start-react": "cd ./client/ & npm start",
-    "build-react": "cd ./client/ & npm run build"
+    "dev": "concurrently --kill-others \"npm run start-client\" \"npm run start-server\"",
+    "start-client": "cd ./client/ & npm start",
+    "build-client": "cd ./client/ & npm run build",
+    "start-server": "cd ./server/ & npm start",
+    "postinstall": "cd client && npm i && cd ../server && npm i"
   },
   "repository": {
     "type": "git",
@@ -18,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/revistamarte/martezine-web/issues"
   },
-  "homepage": "https://github.com/revistamarte/martezine-web#readme"
+  "homepage": "https://github.com/revistamarte/martezine-web#readme",
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
 }
