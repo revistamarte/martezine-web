@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <a href="https://www.instagram.com/marte.zine/"><img src={logo} className="marte-logo" alt="logo" /></a>
       </header>
     </div>
   );

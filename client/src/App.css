@@ -2,9 +2,16 @@
   text-align: center;
 }
 
-.App-logo {
+.marte-logo {
   height: 75px;
-  pointer-events: none;
+  user-select: none;
+  transition: transform 1s;
+  color: #B7271A;
+}
+.marte-logo:hover {
+  transform: scale(1.2);
+  transition: transform 1s;
+  cursor: pointer;
 }
 
 .App-header {
