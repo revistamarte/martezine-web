@@ -1,6 +1,7 @@
 import React from "react";
 import logo from './assets/logos/marte-logo.svg';
 import './App.css';
+import Test from "./components/test/Test";
 
 function App() {
   return (
