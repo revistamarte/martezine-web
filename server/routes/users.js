@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const { user } = require("../models");
+const { findByIdAndUpdate } = require("../models/user");
 
 const getUser = async (req, res, next) => {
     let oneUser;
     try {
         oneUser = await user.findById(req.params.id);
         if (oneUser == null) {
-            return res.send(404).json({
+            return res.status(404).json({
                 message: "User not found."
             });
         }
@@ -33,14 +34,15 @@ router.get("/", async (req, res) => {
 
 // Getting one
 router.get("/:id", getUser, async (req, res) => {
-    res.send(req.user.name);
+    res.json(req.user);
 });
+
 // Creating one
 router.post("/", async (req, res) => {
     const userModel = new user({
         name: req.body.name,
         email: req.body.email,
-        subscription: req.body.subscription
+        subscription: "free"
     });
     try {
         const newUser = await userModel.save();
@@ -51,13 +53,32 @@ router.post("/", async (req, res) => {
         });
     }
 });
+
 // Updating one
-router.patch("/:id", async (req, res) => {
-
+router.patch("/:id", getUser, async (req, res) => {
+    try {
+        const updatedUser = await user.findByIdAndUpdate(req.user.id, req.body, { new: true });
+        res.json(updatedUser);
+    } catch (e) {
+        res.status(400).json({
+            message: e.message
+        });
+        console.error(e)
+    }
 });
-// Deleting one
-router.delete("/:id", async (req, res) => {
 
+// Deleting one
+router.delete("/:id", getUser, async (req, res) => {
+    try {
+        await user.findByIdAndDelete(req.user.id);
+        res.json({
+            message: `User '${req.user.email}' deleted`
+        });
+    } catch (e) {
+        res.status(500).json({
+            message: e.message
+        });
+    }
 });
 
 module.exports = router;
