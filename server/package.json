@@ -4,9 +4,15 @@
   "private": "true",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon",
+    "start:open": "node index.js -- --open"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }

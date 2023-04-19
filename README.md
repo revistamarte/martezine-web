@@ -15,18 +15,18 @@ Para rodar o projeto, bastar executar o arquivo `serve.bat`.
 ### Rodando o projeto manualmente
 Abra um terminal e navegue até a pasta do projeto. Execute o comando:
 
-    npm install
+    $ npm install
 
-Após todas as dependências serem instaladas, execute o comando
+Após todas as dependências serem instaladas, execute o seguinte comando para servir a aplicação do client e também o server.
 
-    npm run dev
+    $ npm run dev
 
-para servir a aplicação do client e também o server. Para rodar somente a aplicação do client, execute o comando
+Caso queira rodar somente a aplicação do client:
 
-    npm run start-client
+    $ npm run start-client
 
-e para rodar somente a aplicação do server, execute o comando
+E caso queira rodar somente a aplicação do server:
 
-    npm run start-server
+    $ npm run start-server
 
 #
