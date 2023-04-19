@@ -18,8 +18,9 @@ app.use(express.json());
 const routes = require("./routes")
 app.use("/api", routes);
 
-app.listen(8080, () => {
+app.listen(process.env.PORT, () => {
     console.log("Started...");
+    console.log(`Listening to ${process.env.PORT}...`);
     if (process.argv.indexOf("--open") !== -1) {
         var start = (process.platform == 'darwin'? 'open': process.platform == 'win32'? 'start': 'xdg-open');
         require('child_process').exec(start + ' http://localhost:8080');
