@@ -5,10 +5,11 @@
   "description": "Site da Revista Marte",
   "main": "index.js",
   "scripts": {
+    "start": "npm run build:client && cd ./server/ && npm start",
     "dev": "concurrently --kill-others \"npm run client\" \"npm run server\"",
-    "client": "cd ./client/ & npm start",
+    "client": "cd ./client/ & npm run dev",
     "build:client": "cd ./client/ & npm run build",
-    "server": "cd ./server/ & npm start",
+    "server": "cd ./server/ & npm run dev",
     "postinstall": "cd client && npm i && cd ../server && npm i"
   },
   "repository": {

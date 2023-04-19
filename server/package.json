@@ -4,8 +4,9 @@
   "private": "true",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
-    "start:open": "node index.js -- --open"
+    "start": "node index.js",
+    "start:open": "node index.js -- --open",
+    "dev": "nodemon"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
