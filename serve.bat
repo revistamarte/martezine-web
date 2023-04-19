@@ -6,3 +6,4 @@ call npm i
 call npm run build:client
 cd server
 call npm run start:open
+pause

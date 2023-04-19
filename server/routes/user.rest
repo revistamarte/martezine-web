@@ -3,7 +3,7 @@ GET http://localhost:8080/api/users
 
 ###
 
-GET http://localhost:8080/api/users/643f5bdcbf56808df902930f
+GET http://localhost:8080/api/users/64405f6f1753ae4f9f9401c9
 
 ###
 
@@ -11,22 +11,21 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-    "email": "usuariochato@gmail.com",
-    "name": "Usuário Chato"
+    "email": "usuariochato3@gmail.com",
+    "name": "Usuário Chato 4"
 }
 
 ###
 
-DELETE http://localhost:8080/api/users/643f5f992f378d5ec288608d
+DELETE http://localhost:8080/api/users/6440637b8d62e3e6d3552ce2
 
 ###
 
-PATCH http://localhost:8080/api/users/643f5f992f378d5ec288608d
+PATCH http://localhost:8080/api/users/644063a28d62e3e6d3552ce8
 Content-Type: application/json
 
 {
-    "email": "usuariochato@gmail.com",
-    "name": "Usuário Chato"
+    "name": "Usuário Chato 3"
 }
 
 ###

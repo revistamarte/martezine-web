@@ -103,5 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-# MongoDB playgrounds
+# MongoDB related files
 *.mongodb.js
+dump/
