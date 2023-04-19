@@ -1,7 +1,10 @@
-require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const process = require("process");
+
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DATABASE_URL, { dbName: process.env.DATABASE_NAME });
