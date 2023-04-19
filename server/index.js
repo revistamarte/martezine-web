@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const process = require("process");
 
-if (process.env.NODE_ENV !== "production") {
+if (!(process.env.NODE_ENV in ["production", "dev"])) {
     require("dotenv").config();
 }
 
