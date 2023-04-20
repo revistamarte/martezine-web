@@ -1,6 +1,8 @@
+const bcrypt = require("bcrypt");
 const userController = require("./user");
 const credentialController = require("./credential");
-const bcrypt = require("bcrypt");
+const { generateTokens } = require("../auth");
+const { Token } = require("../models")
 
 /**
  * @typedef LoginModel
@@ -15,10 +17,12 @@ async function login(model) {
     const user = await userController.getUserByEmail(model.email);
     const encodedPassword = await credentialController
         .getEncodedPassword(user.id);
-    if (await bcrypt.compare(model.password, encodedPassword)) {
-        return user;
+    if (!await bcrypt.compare(model.password, encodedPassword)) {
+        throw new Error("Password is incorrect.");
     }
-    return null;
+    const userObj = user.toObject();
+    const tokens = await generateTokens(userObj);
+    return tokens;
 }
 
 /**
@@ -42,10 +46,10 @@ async function signup(model) {
         subscription: model.subscription,
     });
     const encodedPassword = await bcrypt.hash(model.password, 10);
-    const credential = await credentialController.createCredential({
+    await credentialController.createCredential({
         userId: user.id, encodedPassword: encodedPassword
     });
-    return { user, credential };
+    return { user };
 }
 
 module.exports = {

@@ -23,3 +23,13 @@ Content-Type: application/json
 
 
 ###
+
+POST http://localhost:8080/api/token
+Content-Type: application/json
+
+{
+    "token": "93eecd6ab7785f04f37fc073c014c5229f25eb3e0b0c249e9c1dfb5963adf7f6b5ae35e4b3a06baf86f0044f370d821fffff640a4267502e827bc99863a9180c"
+}
+
+
+###

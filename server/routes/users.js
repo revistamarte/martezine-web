@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { userController } = require("../controller");
+const { userController } = require("../controllers");
+const { authenticateToken } = require("../auth");
 
-// Getting all
-router.get("/", async (req, res) => {
+// Getting own user
+router.get("/", authenticateToken, async (req, res) => {
     try {
-        const users = await userController.getAllUsers();
-        res.json(users);
+        const user = await userController.getUser(req.user._id);
+        res.json(user);
     } catch (e) {
-        res.status(500).json({ message: e.message });
+        return res.status(500).json({ message: e.message });
     }
 });
 
@@ -30,24 +31,8 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// // Creating one
-// router.post("/", async (req, res) => {
-//     try {
-//         const user = await controller.createUser({
-//             name: req.body.name,
-//             email: req.body.email,
-//             subscription: "free"
-//         });
-//         res.status(201).json(user);
-//     } catch (e) {
-//         res.status(400).json({
-//             message: e.message
-//         });
-//     }
-// });
-
 // Updating one
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authenticateToken, async (req, res) => {
     try {
         const user = await userController.patchUser(req.params.id, req.body);
         res.json(user);
@@ -59,7 +44,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // Deleting one
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
     try {
         const user = await userController.deleteUser(req.params.id);
         res.json({
