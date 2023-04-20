@@ -5,15 +5,24 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    lastName: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true,
         unique: true,
         immutable: true
     },
+    pronouns: {
+        type: String,
+        default: "none"
+    },
     subscription: {
         type: String,
-        required: true
+        required: true,
+        default: "free"
     },
     memberSince: {
         type: Date,
