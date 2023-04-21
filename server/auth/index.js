@@ -56,10 +56,11 @@ function generateAccessToken(user) {
  * @returns {Promise<String>}
  */
 async function generateRefreshToken(user) {
-    const token = crypto.randomBytes(64).toString("hex");;
+    await Token.deleteMany({ userId: user.id })
+    const token = crypto.randomBytes(128).toString("hex");;
     const tokenModel = new Token({
         token: token,
-        userId: user._id
+        userId: user.id
     });
     await tokenModel.save();
     return token;
@@ -75,7 +76,7 @@ async function refreshAccessToken(refreshToken) {
         throw new Error("Invalid refresh token.");
     }
     let user = await getUser(tokenFromDb.userId);
-    return await generateTokens(user.toObject());
+    return await generateTokens(user.toJSON());
 }
 
 /**

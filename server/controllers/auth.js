@@ -20,7 +20,7 @@ async function login(model) {
     if (!await bcrypt.compare(model.password, encodedPassword)) {
         throw new Error("Password is incorrect.");
     }
-    const userObj = user.toObject();
+    const userObj = user.toJSON();
     const tokens = await generateTokens(userObj);
     return tokens;
 }

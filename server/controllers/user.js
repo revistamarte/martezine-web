@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const credentialController = require("./credential");
 
 /**
  * @typedef UserModel
@@ -53,7 +54,9 @@ async function patchUser(id, model) {
 }
 
 async function deleteUser(id) {
-    return await User.findByIdAndDelete(id);
+    const user = await User.findByIdAndDelete(id);
+    await credentialController.deleteCredential(id);
+    return user;
 }
 
 module.exports = {

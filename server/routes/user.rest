@@ -6,15 +6,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDQwODhmM
 
 GET http://localhost:8080/api/users/644088f0bf7369466fcf13bc
 
-###
-
-POST http://localhost:8080/api/users
-Content-Type: application/json
-
-{
-    "email": "usuariochato3@gmail.com",
-    "name": "Usuário Chato 4"
-}
 
 ###
 
