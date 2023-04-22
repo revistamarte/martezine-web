@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const { Token } = require("../models");
 const { getUser } = require("../controllers/user");
+const { UserRole } = require("../models/enums");
 
 /**
  * @type {express.RequestHandler}
@@ -22,7 +23,9 @@ async function authenticateToken(req, res, next) {
             });
         }
         req.user = user;
-        next()
+        req.isAdmin = user.role == UserRole.ADMIN;
+        req.isEditor = user.role == UserRole.EDITOR;
+        next();
     });
 }
 

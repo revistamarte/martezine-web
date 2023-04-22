@@ -13,9 +13,27 @@ router.get("/", authenticateToken, async (req, res) => {
     }
 });
 
-// Getting one
-router.get("/:id", async (req, res) => {
+// Getting all users
+router.get("/all", authenticateToken, async (req, res) => {
     try {
+        if (!req.isAdmin) {
+            return res.sendStatus(403);
+        }
+        const user = await userController.getAllUsers();
+        res.json(user);
+    } catch (e) {
+        return res.status(500).json({
+            message: e.message
+        });
+    }
+});
+
+// Getting one
+router.get("/:id", authenticateToken, async (req, res) => {
+    try {
+        if (!req.isAdmin) {
+            return res.sendStatus(403);
+        }
         const user = await userController.getUser(req.params.id);
         if (user == null) {
             return res.status(404).json({
@@ -34,8 +52,8 @@ router.get("/:id", async (req, res) => {
 // Updating one
 router.patch("/:id", authenticateToken, async (req, res) => {
     try {
-        if (req.user.id != req.params.id) {
-            res.status(403).json({
+        if (!req.isAdmin && req.user.id != req.params.id) {
+            return res.status(403).json({
                 message: "You can only update your own information."
             });
         }
@@ -51,16 +69,15 @@ router.patch("/:id", authenticateToken, async (req, res) => {
 // Deleting one
 router.delete("/:id", authenticateToken, async (req, res) => {
     try {
-        if (req.user.id != req.params.id) {
-            res.status(403).json({
+        if (!req.isAdmin && req.user.id != req.params.id) {
+            return res.status(403).json({
                 message: "You can only delete your own account."
             });
         }
         const user = await userController.deleteUser(req.params.id);
-        return res.json(user);
-        // res.json({
-        //     message: `User '${user.email}' deleted`
-        // });
+        return res.json({
+            message: `User '${user.email}' deleted`
+        });
     } catch (e) {
         console.error(e)
         return res.status(500).json({

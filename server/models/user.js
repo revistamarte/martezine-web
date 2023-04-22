@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { UserRole, UserSubscription, UserPronouns } = require("./enums");
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -17,12 +18,16 @@ const userSchema = new mongoose.Schema({
     },
     pronouns: {
         type: String,
-        default: "none"
+        default: UserPronouns.NONE
+    },
+    role: {
+        type: String,
+        default: UserRole.REGULAR
     },
     subscription: {
         type: String,
         required: true,
-        default: "free"
+        default: UserSubscription.FREE
     },
     memberSince: {
         type: Date,
