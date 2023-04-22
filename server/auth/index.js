@@ -59,8 +59,8 @@ function generateAccessToken(user) {
  * @returns {Promise<String>}
  */
 async function generateRefreshToken(user) {
-    await Token.deleteMany({ userId: user.id })
-    const token = crypto.randomBytes(128).toString("hex");;
+    await Token.deleteMany({ userId: user.id });
+    const token = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: 0 });
     const tokenModel = new Token({
         token: token,
         userId: user.id
