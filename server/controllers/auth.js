@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { Token, User } = require("../models");
+const { Token, User, HttpError } = require("../models");
 const { UserRole } = require("../models/enums");
 
 /**
@@ -10,15 +10,11 @@ async function authenticateToken(req, res, next) {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
     if (token == null) {
-        return res.status(401).json({
-            message: "No access token provided."
-        });
+        return new HttpError(401, "No access token provided.").send(res);
     }
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
-            return res.status(403).json({
-                message: "Invalid access token."
-            });
+            return new HttpError(403, "Invalid access token.").send(res);
         }
         req.user = user;
         req.isAdmin = user.role == UserRole.ADMIN;
@@ -74,7 +70,7 @@ async function generateRefreshToken(user) {
 async function refreshAccessToken(refreshToken) {
     const tokenFromDb = await getTokenFromDbAndDelete(refreshToken);
     if (tokenFromDb == null) {
-        throw new Error("Invalid refresh token.");
+        throw new HttpError(401, "Invalid refresh token.");
     }
     let user = await User.findById(tokenFromDb.userId);
     return await generateTokens(user.toJSON());

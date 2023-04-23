@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { userController } = require("../controllers");
 const { authenticateToken } = require("../controllers/auth");
+const { HttpError } = require("../models");
 
 // Getting own user
 router.get("/", authenticateToken, async (req, res) => {
@@ -9,7 +10,7 @@ router.get("/", authenticateToken, async (req, res) => {
         const user = await userController.getUser(req.user.id);
         res.json(user);
     } catch (e) {
-        return res.status(500).json({ message: e.message });
+        return new HttpError(e.status, e.message).send(res);
     }
 });
 
@@ -22,9 +23,7 @@ router.get("/all", authenticateToken, async (req, res) => {
         const user = await userController.getAllUsers();
         res.json(user);
     } catch (e) {
-        return res.status(500).json({
-            message: e.message
-        });
+        return new HttpError(e.status, e.message).send(res);
     }
 });
 
@@ -35,17 +34,9 @@ router.get("/:id", authenticateToken, async (req, res) => {
             return res.sendStatus(403);
         }
         const user = await userController.getUser(req.params.id);
-        if (user == null) {
-            return res.status(404).json({
-                message: "User not found."
-            });
-        } else {
-            res.json(user);
-        }
+        res.json(user);
     } catch (e) {
-        return res.status(500).json({
-            message: e.message
-        });
+        return res.status(e.status).json(e.body);
     }
 });
 
@@ -53,16 +44,12 @@ router.get("/:id", authenticateToken, async (req, res) => {
 router.patch("/:id", authenticateToken, async (req, res) => {
     try {
         if (!req.isAdmin && req.user.id != req.params.id) {
-            return res.status(403).json({
-                message: "You can only update your own information."
-            });
+            return new HttpError(403, "You can only update your own information.").send(res);
         }
         const user = await userController.patchUser(req.params.id, req.body);
         return res.json(user);
     } catch (e) {
-        return res.status(400).json({
-            message: e.message
-        });
+        return new HttpError(e.status, e.message).send(res);
     }
 });
 
@@ -70,19 +57,14 @@ router.patch("/:id", authenticateToken, async (req, res) => {
 router.delete("/:id", authenticateToken, async (req, res) => {
     try {
         if (!req.isAdmin && req.user.id != req.params.id) {
-            return res.status(403).json({
-                message: "You can only delete your own account."
-            });
+            return new HttpError(403, "You can only delete your own account.").send(res);
         }
         const user = await userController.deleteUser(req.params.id);
         return res.json({
             message: `User '${user.email}' deleted`
         });
     } catch (e) {
-        console.error(e)
-        return res.status(500).json({
-            message: e.message
-        });
+        return new HttpError(e.status, e.message).send(res);
     }
 });
 

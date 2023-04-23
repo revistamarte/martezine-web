@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const userController = require("./user");
 const credentialController = require("./credential");
 const { generateTokens } = require("./auth");
+const { HttpError } = require("../models");
 
 /**
  * @typedef LoginModel
@@ -17,7 +18,7 @@ async function login(model) {
     const encodedPassword = await credentialController
         .getEncodedPassword(user.id);
     if (!await bcrypt.compare(model.password, encodedPassword)) {
-        throw new Error("Password is incorrect.");
+        throw new HttpError(400, "Password is incorrect.");
     }
     const userObj = user.toJSON();
     const tokens = await generateTokens(userObj);

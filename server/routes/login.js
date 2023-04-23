@@ -1,6 +1,7 @@
 const express = require("express");
 const route = express.Router();
 const { loginController } = require("../controllers");
+const { HttpError } = require("../models");
 
 // login
 route.post("/login", validateFields, async (req, res) => {
@@ -11,9 +12,7 @@ route.post("/login", validateFields, async (req, res) => {
         });
         res.json(tokens);
     } catch (e) {
-        res.status(400).json({
-            message: e.message
-        });
+        return new HttpError(e.status, e.message).send(res);
     }
 });
 
@@ -21,10 +20,7 @@ route.post("/login", validateFields, async (req, res) => {
 route.post("/signup", validateFields, async (req, res) => {
     try {
         if (req.body.password !== req.body.repeatPassword) {
-            res.status(400).json({
-                message: "Passwords don't match."
-            });
-            return;
+            return new HttpError(400, "Passwords don't match.").send(res);
         }
         const info = await loginController.signup({
             name: req.body.name,
@@ -35,9 +31,7 @@ route.post("/signup", validateFields, async (req, res) => {
         });
         res.json(info);
     } catch (e) {
-        res.status(400).json({
-            message: e.message
-        });
+        return new HttpError(e.status, e.message).send(res);
     }
 });
 
