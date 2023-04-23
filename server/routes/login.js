@@ -39,6 +39,14 @@ route.post("/signup", validateFields, async (req, res) => {
  * @type {express.RequestHandler}
  */
 async function validateFields(req, res, next) {
+    if (!req.body.email) {
+        return new HttpError(400, `The field 'email' is required.`).send(res);
+    }
+    if (req.body.email.match(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+    ) == null) {
+        return new HttpError(400, "Invalid email provided.").send(res);
+    }
     next();
 }
 
