@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { userController } = require("../controllers");
-const { authenticateToken } = require("../auth");
+const { authenticateToken } = require("../controllers/auth");
 
 // Getting own user
 router.get("/", authenticateToken, async (req, res) => {

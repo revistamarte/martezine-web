@@ -1,57 +1,101 @@
-const bcrypt = require("bcrypt");
-const userController = require("./user");
-const credentialController = require("./credential");
-const { generateTokens } = require("../auth");
-const { Token } = require("../models")
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const { Token, User } = require("../models");
+const { UserRole } = require("../models/enums");
 
 /**
- * @typedef LoginModel
- * @property {String} email
- * @property {String} password
+ * @type {express.RequestHandler}
  */
-
-/**
- * @param {LoginModel} model
- */
-async function login(model) {
-    const user = await userController.getUserByEmail(model.email);
-    const encodedPassword = await credentialController
-        .getEncodedPassword(user.id);
-    if (!await bcrypt.compare(model.password, encodedPassword)) {
-        throw new Error("Password is incorrect.");
+async function authenticateToken(req, res, next) {
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(" ")[1];
+    if (token == null) {
+        return res.status(401).json({
+            message: "No access token provided."
+        });
     }
-    const userObj = user.toJSON();
-    const tokens = await generateTokens(userObj);
-    return tokens;
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) {
+            return res.status(403).json({
+                message: "Invalid access token."
+            });
+        }
+        req.user = user;
+        req.isAdmin = user.role == UserRole.ADMIN;
+        req.isEditor = user.role == UserRole.EDITOR;
+        next();
+    });
 }
 
 /**
- * @typedef SignupModel
- * @property {String} name
- * @property {String} lastName
- * @property {String} email
- * @property {String} password
- * @property {String} pronouns
+ * @typedef TokenPair
+ * @property {String} accessToken
+ * @property {String} refreshToken
  */
 
 /**
- * @param {SignupModel} model
+ * @returns {Promise<TokenPair>}
  */
-async function signup(model) {
-    const user = await userController.createUser({
-        name: model.name,
-        lastName: model.lastName,
-        email: model.email,
-        pronouns: model.pronouns,
-        subscription: model.subscription,
+async function generateTokens(user) {
+    const accessToken = generateAccessToken(user);
+    const refreshToken = await generateRefreshToken(user);
+    return {
+        accessToken, refreshToken
+    };
+}
+
+/**
+ * @returns {String}
+ */
+function generateAccessToken(user) {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { 
+        expiresIn: process.env.ACCESS_TOKEN_EXPIRATION
+     });
+}
+
+/**
+ * @returns {Promise<String>}
+ */
+async function generateRefreshToken(user) {
+    await deleteTokensByUserId(user.id)
+    const token = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: 0 });
+    const tokenModel = new Token({
+        token: token,
+        userId: user.id
     });
-    const encodedPassword = await bcrypt.hash(model.password, 10);
-    await credentialController.createCredential({
-        userId: user.id, encodedPassword: encodedPassword
-    });
-    return { user };
+    await tokenModel.save();
+    return token;
+}
+
+/**
+ * @param {String} refreshToken
+ * @returns {TokenPair}
+ */
+async function refreshAccessToken(refreshToken) {
+    const tokenFromDb = await getTokenFromDbAndDelete(refreshToken);
+    if (tokenFromDb == null) {
+        throw new Error("Invalid refresh token.");
+    }
+    let user = await User.findById(tokenFromDb.userId);
+    return await generateTokens(user.toJSON());
+}
+
+/**
+ * @param {String} token
+ */
+async function getTokenFromDbAndDelete(token) {
+    return await Token.findOneAndDelete({ token: token });
+}
+
+/**
+ * @param {String} token
+ */
+async function deleteTokensByUserId(userId) {
+    return await Token.deleteMany({ userId: userId });
 }
 
 module.exports = {
-    login, signup
+    generateTokens,
+    refreshAccessToken,
+    authenticateToken
 }

@@ -1,46 +1,6 @@
 const express = require("express");
 const route = express.Router();
 const { authController } = require("../controllers");
-const { refreshAccessToken } = require("../auth");
-
-// login
-route.post("/login", async (req, res) => {
-    try {
-        const tokens = await authController.login({
-            email: req.body.email,
-            password: req.body.password
-        });
-        res.json(tokens);
-    } catch (e) {
-        res.status(400).json({
-            message: e.message
-        });
-    }
-});
-
-// signup
-route.post("/signup", async (req, res) => {
-    try {
-        if (req.body.password !== req.body.repeatPassword) {
-            res.status(400).json({
-                message: "Passwords don't match."
-            });
-            return;
-        }
-        const info = await authController.signup({
-            name: req.body.name,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password,
-            pronouns: req.body.pronouns
-        });
-        res.json(info);
-    } catch (e) {
-        res.status(400).json({
-            message: e.message
-        });
-    }
-});
 
 // refresh token
 route.post("/token", async (req, res) => {
@@ -51,7 +11,7 @@ route.post("/token", async (req, res) => {
                 message: "No refresh token provided."
             });
         }
-        const tokens = await refreshAccessToken(refreshToken);
+        const tokens = await authController.refreshAccessToken(refreshToken);
         res.json(tokens);
     } catch (e) {
         res.status(400).json({
@@ -60,4 +20,4 @@ route.post("/token", async (req, res) => {
     }
 });
 
-module.exports = route;
+module.exports = route

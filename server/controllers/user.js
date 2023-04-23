@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Token } = require("../models");
 const credentialController = require("./credential");
 
 /**
@@ -55,7 +55,9 @@ async function patchUser(id, model) {
 
 async function deleteUser(id) {
     const user = await User.findByIdAndDelete(id);
+    if (user == null) throw new Error("User not found.");
     await credentialController.deleteCredential(id);
+    await Token.deleteMany({ userId: id });
     return user;
 }
 
