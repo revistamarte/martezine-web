@@ -10,6 +10,10 @@ const credentialSchema = new mongoose.Schema({
     encodedPassword: {
         type: String,
         required: true
+    },
+    confirmed: {
+        type: Boolean,
+        default: false
     }
 });
 

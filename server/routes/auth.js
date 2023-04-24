@@ -1,6 +1,6 @@
 const express = require("express");
 const route = express.Router();
-const { authController } = require("../controllers");
+const { authController, userController, credentialController } = require("../controllers");
 const { HttpError } = require("../models");
 
 // refresh token
@@ -12,6 +12,39 @@ route.post("/token", async (req, res) => {
         }
         const tokens = await authController.refreshAccessToken(refreshToken);
         res.json(tokens);
+    } catch (e) {
+        return new HttpError(e.status, e.message).send(res);
+    }
+});
+
+// send email confirmation
+route.post("/confirmation", async (req, res) => {
+    try {
+        const email = req.body.email;
+        if (!email) {
+            return new HttpError(400, "No email provided.").send(res);
+        }
+        const user = await userController.getUserByEmail(email);
+        const isConfirmed = await credentialController.isConfirmedUser(user.id);
+        if (isConfirmed) {
+            return new HttpError(400, "User is already confirmed.").send(res);
+        }
+        authController.sendConfirmationEmail(user);
+        return res.json({
+            message: `Email sent to '${email}'.`
+        });
+    } catch (e) {
+        return new HttpError(e.status, e.message).send(res);
+    }
+});
+
+// confirm user with token
+route.post("/confirmation/:token", async (req, res) => {
+    try {
+        const confirmedUser = await authController.confirmUserWithToken(req.params.token);
+        return res.json({
+            message: `User '${confirmedUser.email}' was confirmed.`
+        });
     } catch (e) {
         return new HttpError(e.status, e.message).send(res);
     }

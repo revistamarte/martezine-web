@@ -40,9 +40,18 @@ async function deleteCredential(userId) {
     return await Credential.findOneAndDelete({ userId: userId });
 }
 
+/**
+ * @param {String} userId
+ */
+async function isConfirmedUser(userId) {
+    const credential = await Credential.findOne({ userId: userId });
+    return credential.confirmed;
+}
+
 module.exports = {
     getEncodedPassword,
     createCredential,
     patchCredential,
-    deleteCredential
+    deleteCredential,
+    isConfirmedUser
 }

@@ -6,8 +6,9 @@ const credentialController = require("./credential");
  * @property {String} name
  * @property {String} lastName
  * @property {String} email
- * @property {String} [pronouns]
- * @property {String} [subscription]
+ * @property {String} pronouns
+ * @property {String} subscription
+ * @property {String} role
  */
 
 async function getAllUsers() {

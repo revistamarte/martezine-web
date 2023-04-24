@@ -11,6 +11,11 @@ const tokenSchema = new mongoose.Schema({
         type: String,
         immutable: true,
         required: true
+    },
+    type: {
+        type: String,
+        immutable: true,
+        required: true
     }
 });
 

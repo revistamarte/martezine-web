@@ -20,6 +20,9 @@ async function login(model) {
     if (!await bcrypt.compare(model.password, encodedPassword)) {
         throw new HttpError(400, "Password is incorrect.");
     }
+    if (!await credentialController.isConfirmedUser(user.id)) {
+        throw new HttpError(403, "User is not confirmed");
+    }
     const userObj = user.toJSON();
     const tokens = await generateTokens(userObj);
     return tokens;
