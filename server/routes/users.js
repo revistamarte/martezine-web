@@ -1,8 +1,9 @@
-const express = require("express");
+import express from "express";
+import userController from "../controllers/user.js";
+import { authenticateToken } from "../controllers/auth.js";
+import HttpError from "../models/error.js";
+
 const router = express.Router();
-const { userController } = require("../controllers");
-const { authenticateToken } = require("../controllers/auth");
-const { HttpError } = require("../models");
 
 // Getting own user
 router.get("/", authenticateToken, async (req, res) => {
@@ -68,4 +69,4 @@ router.delete("/:id", authenticateToken, async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const { Credential } = require("../models");
+import Credential from "../models/credential.js";
 
 /** 
  * @typedef CredentialModel
@@ -9,7 +9,7 @@ const { Credential } = require("../models");
 /**
  * @param {String} userId
  */
-async function getEncodedPassword(userId) {
+export async function getEncodedPassword(userId) {
     const credential = await Credential.findOne({ userId: userId });
     return credential.encodedPassword;
 }
@@ -17,7 +17,7 @@ async function getEncodedPassword(userId) {
 /**
  * @param {CredentialModel} model 
  */
-async function createCredential(model) {
+export async function createCredential(model) {
     const credential = new Credential({
         userId: model.userId,
         encodedPassword: model.encodedPassword
@@ -29,29 +29,30 @@ async function createCredential(model) {
  * @param {String} userId
  * @param {CredentialModel} model 
  */
-async function patchCredential(userId, model) {
+export async function patchCredential(userId, model) {
     return await Credential.findOneAndUpdate({ userId: userId }, model, { new: true });
 }
 
 /**
  * @param {String} userId
  */
-async function deleteCredential(userId) {
+export async function deleteCredential(userId) {
     return await Credential.findOneAndDelete({ userId: userId });
 }
 
 /**
  * @param {String} userId
  */
-async function isConfirmedUser(userId) {
+export async function isConfirmedUser(userId) {
     const credential = await Credential.findOne({ userId: userId });
     return credential.confirmed;
 }
 
-module.exports = {
+const credentialController = {
     getEncodedPassword,
     createCredential,
     patchCredential,
     deleteCredential,
     isConfirmedUser
-}
+};
+export default credentialController;

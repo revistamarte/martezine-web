@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { UserRole, UserSubscription, UserPronouns } = require("./enums");
+import mongoose from "mongoose";
+import { UserPronouns, UserRole, UserSubscription } from "./enums.js";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -44,4 +44,4 @@ userSchema.method("toJSON", function() {
     return { id, ...object };
 })
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);

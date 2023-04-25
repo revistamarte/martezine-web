@@ -1,12 +1,14 @@
-const express = require("express");
-const path = require("path");
-const process = require("process");
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import process from "process";
+import "dotenv/config.js";
 
-if (process.env.NODE_ENV !== "production" && process.env.NODE_ENV !== "dev") {
-    require("dotenv").config();
-}
+// if (process.env.NODE_ENV !== "production" && process.env.NODE_ENV !== "dev") {
+//     dotenv.config();
+// }
 
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 mongoose.connect(process.env.DATABASE_URL, { dbName: process.env.DATABASE_NAME });
 const db = mongoose.connection;
 db.on("error", error => console.error(error));
@@ -14,9 +16,9 @@ db.once("open", () => console.log("Connected to database."));
 
 const app = express();
 app.use(express.json());
-const routes = require("./routes")
+import routes from "./routes/index.js";
 app.use("/api", routes);
-const clientPath = path.join(__dirname, "../client/build");
+const clientPath = path.join(path.dirname(fileURLToPath(import.meta.url)), "../client/build");
 app.use(express.static(clientPath));
 app.get("*", (req, res) => res.sendFile(path.join(clientPath, "./index.html")));
 

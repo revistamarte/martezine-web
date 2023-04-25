@@ -1,5 +1,3 @@
-const express = require("express");
-
 class HttpError {
 
     /**
@@ -19,6 +17,7 @@ class HttpError {
             status: this.status,
             message: this.message
         }
+        console.error(message);
     }
 
     /** @type {Number} */
@@ -29,7 +28,7 @@ class HttpError {
     body;
 
     /**
-     * @param {express.Response} res 
+     * @param {import("express").Response} res 
      */
     send(res) {
         res.status(this.status).json(this.body);
@@ -37,4 +36,4 @@ class HttpError {
 
 }
 
-module.exports = HttpError;
+export default HttpError;

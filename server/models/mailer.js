@@ -1,5 +1,6 @@
-const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
+import nodemailer from "nodemailer";
+import { google } from "googleapis";
+import "dotenv/config.js";
 
 const OAuth2 = google.auth.OAuth2;
 
@@ -21,7 +22,7 @@ client.setCredentials({
 /**
  * @param {MailOptions} options
  */
-async function sendMail(options) {
+export async function sendMail(options) {
   if (!options) {
     throw new Error("No options provided.");
   }
@@ -51,5 +52,7 @@ async function sendMail(options) {
   return info;
 }
 
-
-module.exports = { sendMail }
+const mailerModel = {
+  sendMail
+};
+export default mailerModel;
