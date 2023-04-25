@@ -13,10 +13,12 @@ db.on("error", error => console.error(error));
 db.once("open", () => console.log("Connected to database."));
 
 const app = express();
-app.use(express.static(path.join(__dirname, "../client/build")));
 app.use(express.json());
 const routes = require("./routes")
 app.use("/api", routes);
+const clientPath = path.join(__dirname, "../client/build");
+app.use(express.static(clientPath));
+app.get("*", (req, res) => res.sendFile(path.join(clientPath, "./index.html")));
 
 app.listen(process.env.PORT, () => {
     console.log("Started...");

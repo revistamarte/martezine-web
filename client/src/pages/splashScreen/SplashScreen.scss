@@ -1,0 +1,27 @@
+.splash-screen {
+    text-align: center;
+    
+    .header {
+        background-color: #F2EAE9;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(10px + 2vmin);
+        color: white;
+    
+        .marte-logo {
+            height: 75px;
+            user-select: none;
+            transition: transform 1s;
+            color: #B7271A;
+        
+            &:hover {
+                transform: scale(1.2);
+                transition: transform 1s;
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+.marte-header {
+    width: 100vw;
+    display: flex;
+
+    .logo {
+        float: left;
+    }
+    .links {
+        float: none;
+    }
+    .auth {
+        float: right;
+    }
+
+}
