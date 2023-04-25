@@ -1,7 +1,10 @@
-const express = require("express");
+import express from "express";
+import authController from "../controllers/auth.js";
+import userController from "../controllers/user.js";
+import credentialController from "../controllers/credential.js";
+import HttpError from "../models/error.js";
+
 const route = express.Router();
-const { authController, userController, credentialController } = require("../controllers");
-const { HttpError } = require("../models");
 
 // refresh token
 route.post("/token", async (req, res) => {
@@ -50,4 +53,4 @@ route.post("/confirmation/:token", async (req, res) => {
     }
 });
 
-module.exports = route
+export default route;

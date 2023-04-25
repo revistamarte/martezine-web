@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import loginController from "../controllers/login.js";
+import HttpError from "../models/error.js";
+
 const route = express.Router();
-const { loginController } = require("../controllers");
-const { HttpError } = require("../models");
 
 // login
 route.post("/login", validateFields, async (req, res) => {
@@ -50,4 +51,4 @@ async function validateFields(req, res, next) {
     next();
 }
 
-module.exports = route;
+export default route;

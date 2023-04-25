@@ -1,21 +1,27 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const path = require("path");
-const fs = require("fs");
-const handlebars = require("handlebars");
-const { Token, User, HttpError, Mailer, Credential } = require("../models");
-const { UserRole, TokenType } = require("../models/enums");
+import express from "express";
+import jwt from "jsonwebtoken";
+import path from "path";
+import fs from "fs";
+import handlebars from "handlebars";
+import { fileURLToPath } from "url";
+import userController from "./user.js";
+import Token from "../models/token.js";
+import HttpError from "../models/error.js";
+import Mailer from "../models/mailer.js";
+import Credential from "../models/credential.js";
+import { UserRole, TokenType } from "../models/enums.js";
+import "dotenv/config.js";
 
 const emailConfirmationTemplate = handlebars.compile(
     fs.readFileSync(
-        path.join(__dirname, "../resources/userconfirmationemail.html"
+        path.join(path.dirname(fileURLToPath(import.meta.url)), "../resources/userconfirmationemail.html"
     )).toString()
 );
 
 /**
  * @type {express.RequestHandler}
  */
-async function authenticateToken(req, res, next) {
+export async function authenticateToken(req, res, next) {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
     if (token == null) {
@@ -41,7 +47,7 @@ async function authenticateToken(req, res, next) {
 /**
  * @returns {Promise<TokenPair>}
  */
-async function generateTokens(user) {
+export async function generateTokens(user) {
     const accessToken = generateAccessToken(user);
     const refreshToken = await generateRefreshToken(user);
     return {
@@ -88,7 +94,7 @@ async function generateEmailConfirmationToken(user) {
 /**
  * @param {import("./user").UserModel} user 
  */
-async function sendConfirmationEmail(user) {
+export async function sendConfirmationEmail(user) {
     const token = await generateEmailConfirmationToken(user.toJSON());
     const redirectionUrl = `${process.env.HOST}/confirmation/${token}`
     const emailBody = emailConfirmationTemplate({
@@ -106,12 +112,12 @@ async function sendConfirmationEmail(user) {
 /**
  * @param {String} token
  */
-async function confirmUserWithToken(token) {
+export async function confirmUserWithToken(token) {
     const tokenFromDb = await getTokenFromDbAndDelete(token);
     if (tokenFromDb == null || tokenFromDb.type != TokenType.USER_CONFIRMATION) {
         throw new HttpError(400, "Invalid refresh token.");
     }
-    const user = await User.findById(tokenFromDb.userId);
+    const user = await userController.getUser(tokenFromDb.userId);
     await Credential.findOneAndUpdate({ userId: user.id }, { $set: { confirmed: true } });
     return user;
 }
@@ -120,12 +126,12 @@ async function confirmUserWithToken(token) {
  * @param {String} refreshToken
  * @returns {Promise<TokenPair>}
  */
-async function refreshAccessToken(refreshToken) {
+export async function refreshAccessToken(refreshToken) {
     const tokenFromDb = await getTokenFromDbAndDelete(refreshToken);
     if (tokenFromDb == null || tokenFromDb.type != TokenType.REFRESH) {
         throw new HttpError(400, "Invalid refresh token.");
     }
-    const user = await User.findById(tokenFromDb.userId);
+    const user = await userController.getUser(tokenFromDb.userId);
     return await generateTokens(user.toJSON());
 }
 
@@ -140,14 +146,16 @@ async function getTokenFromDbAndDelete(token) {
  * @param {String} token
  * @param {TokenType} type
  */
-async function deleteTokensByUserId(userId, type) {
+export async function deleteTokensByUserId(userId, type = null) {
     return await Token.deleteMany({ userId: userId, type: type });
 }
 
-module.exports = {
+const authController = {
     generateTokens,
     refreshAccessToken,
     authenticateToken,
     sendConfirmationEmail,
-    confirmUserWithToken
-}
+    confirmUserWithToken,
+    deleteTokensByUserId
+};
+export default authController;

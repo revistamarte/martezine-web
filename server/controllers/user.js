@@ -1,5 +1,7 @@
-const { User, Token, HttpError } = require("../models");
-const credentialController = require("./credential");
+import HttpError from "../models/error.js";
+import User from "../models/user.js";
+import authController from "./auth.js";
+import credentialController from "./credential.js";
 
 /**
  * @typedef UserModel
@@ -11,14 +13,14 @@ const credentialController = require("./credential");
  * @property {String} role
  */
 
-async function getAllUsers() {
+export async function getAllUsers() {
     return await User.find();
 }
 
 /**
  * @param {String} id
  */
-async function getUser(id) {
+export async function getUser(id) {
     if (!isValidId(id)) throw new HttpError(400, "Invalid user ID.");
     const user = await User.findById(id);
     if (user == null) throw new HttpError(404, "User not found.");
@@ -28,7 +30,7 @@ async function getUser(id) {
 /**
  * @param {String} email 
  */
-async function getUserByEmail(email) {
+export async function getUserByEmail(email) {
     const user = await User.findOne({ email: email });
     if (user == null) throw new HttpError(404, "User not found.");
     return user;
@@ -37,7 +39,7 @@ async function getUserByEmail(email) {
 /**
  * @param {UserModel} model
  */
-async function createUser(model) {
+export async function createUser(model) {
     const userModel = new User({
         name: model.name,
         lastName: model.lastName,
@@ -51,7 +53,7 @@ async function createUser(model) {
  * @param {String} id
  * @param {UserModel} model
  */
-async function patchUser(id, model) {
+export async function patchUser(id, model) {
     if (!isValidId(id)) throw new HttpError(400, "Invalid user ID.");
     return await User.findByIdAndUpdate(id, model, { new: true });
 }
@@ -59,12 +61,12 @@ async function patchUser(id, model) {
 /**
  * @param {String} id 
  */
-async function deleteUser(id) {
+export async function deleteUser(id) {
     if (!isValidId(id)) throw new HttpError(400, "Invalid user ID.");
     const user = await User.findByIdAndDelete(id);
     if (user == null) throw new HttpError(404, "User not found.");
     await credentialController.deleteCredential(id);
-    await Token.deleteMany({ userId: id });
+    await authController.deleteTokensByUserId(id);
     return user;
 }
 
@@ -75,11 +77,12 @@ function isValidId(id) {
     return id.match(/^[0-9a-fA-F]{24}$/) != null;
 }
 
-module.exports = {
+const userController = {
     getAllUsers,
     getUser,
     getUserByEmail,
     createUser,
     patchUser,
     deleteUser
-}
+};
+export default userController;

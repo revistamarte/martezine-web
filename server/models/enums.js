@@ -1,31 +1,32 @@
 
 /** @enum {String} */
-const UserSubscription = {
+export const UserSubscription = {
     FREE: "free",
     SUBSCRIBER: "subscriber"
 }
 /** @enum {String} */
-const UserRole = {
+export const UserRole = {
     REGULAR: "regular",
     EDITOR: "editor",
     ADMIN: "admin"
 }
 /** @enum {String} */
-const UserPronouns = {
+export const UserPronouns = {
     NONE: "none",
     HE: "he/him",
     SHE: "she/her",
     THEY: "they/them"
 }
 /** @enum {String} */
-const TokenType = {
+export const TokenType = {
     REFRESH: "refresh",
     USER_CONFIRMATION: "user_confirmation"
 }
 
-module.exports = {
+const enums = {
     UserSubscription,
     UserRole,
     UserPronouns,
     TokenType
-}
+};
+export default enums;

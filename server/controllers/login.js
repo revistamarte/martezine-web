@@ -1,8 +1,8 @@
-const bcrypt = require("bcrypt");
-const userController = require("./user");
-const credentialController = require("./credential");
-const { generateTokens } = require("./auth");
-const { HttpError } = require("../models");
+import bcrypt from "bcrypt";
+import userController from "./user.js";
+import credentialController from "./credential.js";
+import { generateTokens } from "./auth.js";
+import HttpError from "../models/error.js";
 
 /**
  * @typedef LoginModel
@@ -13,7 +13,7 @@ const { HttpError } = require("../models");
 /**
  * @param {LoginModel} model
  */
-async function login(model) {
+export async function login(model) {
     const user = await userController.getUserByEmail(model.email);
     const encodedPassword = await credentialController
         .getEncodedPassword(user.id);
@@ -40,7 +40,7 @@ async function login(model) {
 /**
  * @param {SignupModel} model
  */
-async function signup(model) {
+export async function signup(model) {
     const user = await userController.createUser({
         name: model.name,
         lastName: model.lastName,
@@ -55,6 +55,7 @@ async function signup(model) {
     return { user };
 }
 
-module.exports = {
+const loginController = {
     login, signup
-}
+};
+export default loginController;
