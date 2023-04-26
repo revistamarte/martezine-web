@@ -1,0 +1,11 @@
+@import "../../../Colors.scss";
+
+.header-button {
+    color: $marte-white;
+    text-decoration: none;
+    > div {
+        background-color: $marte-red;
+        padding: 5px 10px;
+        border-radius: 17px;
+    }
+}

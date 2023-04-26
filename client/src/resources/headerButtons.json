@@ -1,0 +1,30 @@
+{
+    "left": [
+        {
+            "to": "/",
+            "text": "home"
+        },
+        {
+            "to": "/edicoes",
+            "text": "edições"
+        },
+        {
+            "to": "/assinar",
+            "text": "eu quero!"
+        },
+        {
+            "to": "/sobre",
+            "text": "sobre"
+        }
+    ],
+    "right": [
+        {
+            "to": "https://www.instagram.com/marte.zine/",
+            "text": "@marte.zine"
+        },
+        {
+            "to": null,
+            "text": "login"
+        }
+    ]
+}

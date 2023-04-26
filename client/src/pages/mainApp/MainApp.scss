@@ -3,4 +3,17 @@
 .main-app {
     background-color: $marte-white;
     min-height: 100vh;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    .main-app-content {
+        max-width: 155vh;
+        width: 155vh;
+
+        &.debug {
+            background-color: #ff000025;
+        }
+    }
+
 }
