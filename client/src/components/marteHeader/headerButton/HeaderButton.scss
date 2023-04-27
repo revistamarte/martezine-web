@@ -8,4 +8,10 @@
         padding: 5px 10px;
         border-radius: 17px;
     }
+    &.active {
+        text-decoration: underline;
+    }
+    &:hover {
+        text-decoration: underline;
+    }
 }

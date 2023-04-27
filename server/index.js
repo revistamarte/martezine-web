@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import process from "process";
 import childprocess from "child_process";
+import cors from "cors"
 import "dotenv/config.js";
 
 // if (process.env.NODE_ENV !== "production" && process.env.NODE_ENV !== "dev") {
@@ -17,6 +18,12 @@ db.once("open", () => console.log("Connected to database."));
 
 const app = express();
 app.use(express.json());
+if (process.env.NODE_ENV === "local") {
+    app.use(cors({
+        origin: 'http://localhost:3000',
+        credentials: true
+    }));
+}
 import routes from "./routes/index.js";
 app.use("/api", routes);
 const clientPath = path.join(path.dirname(fileURLToPath(import.meta.url)), "../client/build");

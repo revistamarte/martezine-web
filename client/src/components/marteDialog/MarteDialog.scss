@@ -1,0 +1,34 @@
+@import "../../Colors.scss";
+
+.marte-dialog {
+    background-color: $marte-red;
+    color: $marte-white;
+    padding: 40px;
+    width: 700px;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0 25px 0;
+
+        .close {
+            cursor: pointer;
+        }
+    }
+    .body {
+        
+    }
+
+}
+
+.warning {
+    background-color: $marte-white;
+    color: $marte-red;
+    padding: 17px 40px;
+    transform: translate(0, 15px);
+    display: flex;
+    justify-content: space-between;
+    .link > a {
+        color: $marte-red;
+    }
+}

@@ -1,3 +1,4 @@
+@import "../../App.scss";
 @import "../../Colors.scss";
 
 .main-app {
@@ -8,8 +9,8 @@
     justify-content: center;
 
     .main-app-content {
-        max-width: 155vh;
-        width: 155vh;
+        max-width: $main-app-width;
+        width: $main-app-width;
 
         &.debug {
             background-color: #ff000025;

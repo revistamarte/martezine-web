@@ -1,3 +1,69 @@
+@import "./Colors.scss";
+
+$main-app-width: 177vh;
+
 * {
     font-family: nitti, monospace;
+}
+
+.font-menu {
+    font-family: nitti, monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    color: $marte-white;
+}
+.font-title {
+    font-family: nitti-typewriter-normal, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+}
+.font-form {
+    font-family: nitti-typewriter-normal, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+}
+.font-underlined {
+    text-decoration: underline;
+}
+.font-bold {
+    font-weight: 900;
+}
+
+input[type=text], input[type=password] {
+    font-family: nitti, monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    color: rgba($color: white, $alpha: 0.9);
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid $marte-white;
+    line-height: 40px;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 15px;
+    &::placeholder {
+        color: rgba($color: white, $alpha: 0.5);
+    }
+    &:focus {
+        outline: none;
+        border-width: 2px;
+    }
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover, 
+    &:-webkit-autofill:focus, 
+    &:-webkit-autofill:active{
+        -webkit-box-shadow: 0 0 0 30px $marte-red inset !important;
+        -webkit-text-fill-color: white !important;
+    }
+}
+input[type=button], input[type=submit] {
+    border: none;
+    box-shadow: none;
+    font-size: 16px;
+    padding: 6px 37px;
+    border-radius: 16px;
 }
