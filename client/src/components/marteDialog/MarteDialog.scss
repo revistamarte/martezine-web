@@ -5,6 +5,7 @@
     color: $marte-white;
     padding: 40px;
     width: 700px;
+    border-radius: 20px;
 
     .header {
         display: flex;
@@ -14,9 +15,6 @@
         .close {
             cursor: pointer;
         }
-    }
-    .body {
-        
     }
 
 }

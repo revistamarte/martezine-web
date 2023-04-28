@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MarteDialog from '../marteDialog/MarteDialog';
 import validator from "validator";
 import axios from 'axios';
@@ -12,6 +12,13 @@ function LoginDialog({ onClose }) {
     const [loginData, setLoginData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
+    const [welcome, setWelcome] = useState(0);
+
+    const welcomes = ["vindo", "vinda", "vinde"];
+
+    useEffect(() => {
+        setTimeout(() => setWelcome((welcome + 1) % 3), 1000);
+    });
 
     const validateData = () => {
         const errors = {};
@@ -47,7 +54,7 @@ function LoginDialog({ onClose }) {
             onClose();
         }).catch(reason => {
             const authError = {}
-            if (reason.response.status === 400) {
+            if (reason.response.status === 400 || reason.response.status === 404) {
                 authError.message = "email ou senha incorreto";
             } else if (reason.response.status === 403) {
                 authError.message = "confirme seu email";
@@ -82,7 +89,7 @@ function LoginDialog({ onClose }) {
     }
 
     return (
-        <MarteDialog onClose={onClose} warning={getErrorToShow()} >
+        <MarteDialog onClose={onClose} title={`bem ${welcomes[welcome]} à marte`} warning={getErrorToShow()} >
             <form className='login-form font-form' onSubmit={handleSubmit}>
                 <input type='text' name='email' placeholder='email' onChange={handleChange} />
                 <div className='password'>

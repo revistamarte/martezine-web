@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import closeIcon from "../../assets/icons/close-icon.svg";
 import "./MarteDialog.scss";
 
-function MarteDialog({ onClose, warning, children }) {
+function MarteDialog({ onClose, title, warning, children }) {
     return (
         <div className='wrapper'>
             {warning ? <>
@@ -22,7 +22,7 @@ function MarteDialog({ onClose, warning, children }) {
             </> : null}
             <div className='marte-dialog'>
                 <div className='header font-title font-underlined'>
-                    <div>bem vindo à marte</div>
+                    <div>{title}</div>
                     <div className='close' onClick={onClose}>
                         <img src={closeIcon} alt='x' />
                     </div>
