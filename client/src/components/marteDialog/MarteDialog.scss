@@ -4,14 +4,20 @@
     background-color: $marte-red;
     color: $marte-white;
     padding: 40px;
-    width: 700px;
+    max-width: 700px;
+    width: 100vw;
     border-radius: 20px;
 
     .header {
         display: flex;
         justify-content: space-between;
         padding: 0 0 25px 0;
-
+        user-select: none;
+        // .title {
+        //     font-family: neue-haas-grotesk-display, sans-serif;
+        //     font-weight: 600;
+        //     font-style: normal;
+        // }
         .close {
             cursor: pointer;
         }
@@ -26,6 +32,7 @@
     transform: translate(0, 15px);
     display: flex;
     justify-content: space-between;
+    border-radius: 20px 20px 0 0;
     .link > a {
         color: $marte-red;
     }

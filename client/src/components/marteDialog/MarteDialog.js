@@ -22,8 +22,8 @@ function MarteDialog({ onClose, title, warning, children }) {
             </> : null}
             <div className='marte-dialog'>
                 <div className='header font-title font-underlined'>
-                    <div>{title}</div>
-                    <div className='close' onClick={onClose}>
+                    <div className='title'>{title}</div>
+                    <div tabIndex={0} className='close' onClick={onClose}>
                         <img src={closeIcon} alt='x' />
                     </div>
                 </div>

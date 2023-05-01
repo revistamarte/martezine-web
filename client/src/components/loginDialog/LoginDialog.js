@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import MarteDialog from '../marteDialog/MarteDialog';
 import validator from "validator";
-import axios from 'axios';
-import globalConfig from '../../globalConfig';
+import authService from '../../services/auth';
+import userService from '../../services/user';
+import AppContext from '../../contexts/App.context';
 
 import show from "../../assets/icons/show.svg"
 import hide from "../../assets/icons/hide.svg"
 import "./LoginDialog.scss";
 
 function LoginDialog({ onClose }) {
+    const { setTokens, setLoggedUser } = useContext(AppContext);
     const [loginData, setLoginData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
-    const [welcome, setWelcome] = useState(0);
+    const [welcomeIdx, setWelcome] = useState(0);
 
     const welcomes = ["vindo", "vinda", "vinde"];
 
     useEffect(() => {
-        setTimeout(() => setWelcome((welcome + 1) % 3), 1000);
-    });
+        const timer = setTimeout(() => setWelcome((welcomeIdx + 1) % 3), 100);
+        return () => clearInterval(timer);
+    }, [welcomeIdx]);
 
     const validateData = () => {
         const errors = {};
@@ -48,24 +51,36 @@ function LoginDialog({ onClose }) {
             return;
         }
         setFormErrors({});
-        axios.post(globalConfig.apiUrl + "/login", loginData)
-        .then(res => {
-            console.log(res.data);
-            onClose();
-        }).catch(reason => {
-            const authError = {}
-            if (reason.response.status === 400 || reason.response.status === 404) {
-                authError.message = "email ou senha incorreto";
-            } else if (reason.response.status === 403) {
-                authError.message = "confirme seu email";
-                authError.linkMessage = "reenviar email de confirmação";
-                authError.link = "/confirmar";
-            } else {
-                authError.message = "algo deu errado";
-            }
-            setFormErrors({
-                auth: authError
-            });
+        authService.login(loginData).then(onLoginSucceeded).catch(onLoginFailed);
+    }
+
+    const onLoginSucceeded = (res) => {
+        console.log(res.data);
+        setTokens(res.data);
+        userService.getLoggedUser(res.data.accessToken)
+        .then(res => setLoggedUser(res.data));
+        onClose();
+    }
+
+    const onLoginFailed = (reason) => {
+        const authError = {}
+            if (
+            reason.response &&
+            (reason.response?.status === 400 || reason.response.status === 404)
+        ) {
+            authError.message = "email ou senha incorreto";
+        } else if (
+            reason.response &&
+            reason.response.status === 403
+        ) {
+            authError.message = "confirme seu email";
+            authError.linkMessage = "reenviar email de confirmação";
+            authError.link = "/confirmar";
+        } else {
+            authError.message = "algo deu errado";
+        }
+        setFormErrors({
+            auth: authError
         });
     }
 
@@ -89,7 +104,7 @@ function LoginDialog({ onClose }) {
     }
 
     return (
-        <MarteDialog onClose={onClose} title={`bem ${welcomes[welcome]} à marte`} warning={getErrorToShow()} >
+        <MarteDialog onClose={onClose} title={`bem-${welcomes[welcomeIdx]} à marte`} warning={getErrorToShow()} >
             <form className='login-form font-form' onSubmit={handleSubmit}>
                 <input type='text' name='email' placeholder='email' onChange={handleChange} />
                 <div className='password'>
