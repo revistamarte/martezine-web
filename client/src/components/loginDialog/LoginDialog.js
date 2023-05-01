@@ -8,6 +8,7 @@ import AppContext from '../../contexts/App.context';
 import show from "../../assets/icons/show.svg"
 import hide from "../../assets/icons/hide.svg"
 import "./LoginDialog.scss";
+import browserStorageService from '../../services/browserStorage';
 
 function LoginDialog({ onClose }) {
     const { setTokens, setLoggedUser } = useContext(AppContext);
@@ -54,9 +55,11 @@ function LoginDialog({ onClose }) {
         authService.login(loginData).then(onLoginSucceeded).catch(onLoginFailed);
     }
 
-    const onLoginSucceeded = (res) => {
+    const onLoginSucceeded = async (res) => {
         console.log(res.data);
         setTokens(res.data);
+        await browserStorageService.saveAccessToken(res.data.accessToken);
+        browserStorageService.saveRefreshToken(res.data.refreshToken);
         userService.getLoggedUser(res.data.accessToken)
         .then(res => setLoggedUser(res.data));
         onClose();
