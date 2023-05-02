@@ -9,8 +9,7 @@ function UserDialog({ onClose }) {
     const navigate = useNavigate();
 
     const signout = () => {
-        browserStorageService.saveAccessToken(null);
-        browserStorageService.saveRefreshToken(null);
+        browserStorageService.removeTokens();
         setTokens(null);
         setLoggedUser(null);
         navigate("/");

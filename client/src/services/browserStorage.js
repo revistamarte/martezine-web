@@ -36,11 +36,17 @@ export function getRefreshToken() {
     return tokenObj.token;
 }
 
+export function removeTokens() {
+    localStorage.removeItem(accessTokenKey);
+    localStorage.removeItem(refreshTokenKey);
+}
+
 const browserStorageService = {
     saveAccessToken,
     saveRefreshToken,
     getAccessToken,
     getRefreshToken,
+    removeTokens
 }
 
 export default browserStorageService;
