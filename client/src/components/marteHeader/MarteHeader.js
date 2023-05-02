@@ -2,13 +2,13 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { v4 } from "uuid";
 import Modal from '../modal/Modal';
-import LoginDialog from '../loginDialog/LoginDialog';
+import AuthDialog, { AuthDialogScreen } from '../authDialog/AuthDialog';
 import headerButtons from "../../resources/headerButtons.json";
 import HeaderButton from './headerButton/HeaderButton';
+import AppContext from '../../contexts/App.context';
 
 import "./MarteHeader.scss";
 import logo from '../../assets/logos/marte-logo.svg';
-import AppContext from '../../contexts/App.context';
 
 function MarteHeader() {
     const { loggedUser } = useContext(AppContext);
@@ -44,13 +44,16 @@ function MarteHeader() {
                     )}
                     <li>
                         {loggedUser ? (
-                            <HeaderButton text={loggedUser.name} />
+                            <HeaderButton text={loggedUser.name} onClick={() => setIsLoginOpen(true)} />
                         ) : (
                             <HeaderButton text='login' onClick={() => setIsLoginOpen(true)} />
                         )}
                     </li>
                     <Modal open={isLoginOpen}>
-                        <LoginDialog onClose={() => setIsLoginOpen(false)} />
+                        <AuthDialog onClose={() => setIsLoginOpen(false)}
+                        initialScreen={
+                            loggedUser ? AuthDialogScreen.USER : AuthDialogScreen.LOGIN
+                        } />
                     </Modal>
                 </ul></nav>
             </div>

@@ -1,16 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import MarteDialog from '../marteDialog/MarteDialog';
+import MarteDialog from '../../marteDialog/MarteDialog';
 import validator from "validator";
-import authService from '../../services/auth';
-import userService from '../../services/user';
-import AppContext from '../../contexts/App.context';
+import authService from '../../../services/auth';
+import userService from '../../../services/user';
+import AppContext from '../../../contexts/App.context';
+import browserStorageService from '../../../services/browserStorage';
+import AuthDialogContext from '../../../contexts/AuthDialog.context';
+import { AuthDialogScreen } from '../AuthDialog';
 
-import show from "../../assets/icons/show.svg"
-import hide from "../../assets/icons/hide.svg"
+import show from "../../../assets/icons/show.svg"
+import hide from "../../../assets/icons/hide.svg"
 import "./LoginDialog.scss";
-import browserStorageService from '../../services/browserStorage';
 
 function LoginDialog({ onClose }) {
+    const { setScreen } = useContext(AuthDialogContext);
+
     const { setTokens, setLoggedUser } = useContext(AppContext);
     const [loginData, setLoginData] = useState({});
     const [formErrors, setFormErrors] = useState({});
@@ -107,7 +111,8 @@ function LoginDialog({ onClose }) {
     }
 
     return (
-        <MarteDialog onClose={onClose} title={`bem-${welcomes[welcomeIdx]} à marte`} warning={getErrorToShow()} >
+        <MarteDialog onClose={onClose} title={`bem-${welcomes[welcomeIdx]} à marte`}
+        warning={getErrorToShow()} >
             <form className='login-form font-form' onSubmit={handleSubmit}>
                 <input type='text' name='email' placeholder='email' onChange={handleChange} />
                 <div className='password'>
@@ -118,12 +123,18 @@ function LoginDialog({ onClose }) {
                     </div>
                 </div>
                 <div className='recover-password'>
-                    <div tabIndex={0} className='has-link'>esqueceu a senha?</div>
+                    <div tabIndex={0} className='has-link'
+                    onClick={() => setScreen(AuthDialogScreen.RESET_PASSWORD)}>
+                        esqueceu a senha?
+                    </div>
                 </div>
                 <div className='form-footer'>
                     <input type='submit' value={"entrar"} />
                     <div>ainda não faz parte da marte?</div>
-                    <div tabIndex={0} className='font-underlined has-link'>crie sua conta!</div>
+                    <div tabIndex={0} className='font-underlined has-link'
+                    onClick={() => setScreen(AuthDialogScreen.SIGNUP)}>
+                        crie sua conta!
+                    </div>
                 </div>
             </form>
         </MarteDialog>

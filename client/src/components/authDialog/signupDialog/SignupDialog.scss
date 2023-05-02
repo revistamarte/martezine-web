@@ -1,0 +1,66 @@
+@import "../../../Colors.scss";
+
+.signup-form {
+    .pronouns-and-birthday {
+        display: flex;
+        justify-content: space-between;
+        gap: 25px;
+        input {
+            flex: 1;
+        }
+    }
+    .password {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        input {
+            flex: 1;
+        }
+        > div {
+            border-bottom: 1px solid $marte-white;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        input:focus + div {
+            border-width: 2px;
+        }
+    }
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        >div {
+            font-size: 14px;
+            a {
+                color: $marte-white;
+            }
+        }
+        input {
+            margin-bottom: 10px;
+            &[type=submit] {
+                cursor: pointer;
+                background-color: $marte-white;
+                color: $marte-red;
+            }
+            &[type=checkbox] {
+                width: 16px;
+                height: 16px;
+                background-color: transparent;
+                border-radius: 50%;
+                vertical-align: middle;
+                border: 2px solid white;
+                appearance: none;
+                -webkit-appearance: none;
+                outline: none;
+                cursor: pointer;
+                margin-right: 15px;
+                &:checked {
+                    background-color: white;
+                    transform: scale(0.9);
+                }
+            }
+        }
+    }
+}

@@ -35,4 +35,4 @@ function MarteDialog({ onClose, title, warning, children }) {
     )
 }
 
-export default MarteDialog
+export default MarteDialog;
