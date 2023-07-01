@@ -23,6 +23,7 @@ function App() {
 			const accessToken = await browserStorageService.getAccessToken();
 			const refreshToken = browserStorageService.getRefreshToken();
 			if (accessToken != null && refreshToken != null) {
+				debugger
 				const userData = (await userService.getLoggedUser(accessToken)).data;
 				setTokens({
 					accessToken, refreshToken

@@ -22,7 +22,7 @@ function UserDialog({ onClose }) {
     }
 
     return (
-        <MarteDialog title={"olá " + loggedUser.name}
+        <MarteDialog title={"olá " + loggedUser.fullname.split(" ")[0]}
             warning={{ title: "atenção", message: "isso é um aviso" }}
             onClose={onClose}>
             <div>Usuário q n sei oq la</div>

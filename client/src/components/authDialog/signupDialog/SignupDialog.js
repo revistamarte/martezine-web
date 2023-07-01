@@ -5,12 +5,13 @@ import MarteDialog from '../../marteDialog/MarteDialog';
 import show from "../../../assets/icons/show.svg";
 import hide from "../../../assets/icons/hide.svg";
 import "./SignupDialog.scss";
+import MarteDatePicker from '../../marteDatePicker/MarteDatePicker';
+import authService from '../../../services/auth';
 
 function SignupDialog({ onClose }) {
     const [signupData, setSignupData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
-    const [dateFocused, setDateFocused] = useState(false);
 
     const validateData = () => {
         const errors = {};
@@ -35,6 +36,7 @@ function SignupDialog({ onClose }) {
 
     const handleChange = (event) => {
         const {name, value} = event.target;
+        if (value === undefined) return;
         setSignupData((prevData) => ({...prevData, [name]: value}));
     }
 
@@ -46,8 +48,7 @@ function SignupDialog({ onClose }) {
             return;
         }
         setFormErrors({});
-        console.log(signupData);
-        // authService.signup(loginData).then(onLoginSucceeded).catch(onLoginFailed);
+        authService.signup(signupData);
     }
 
     const getErrorToShow = () => {
@@ -77,11 +78,12 @@ function SignupDialog({ onClose }) {
                 <div className='pronouns-and-birthday'>
                     <input type='text' name="pronouns" placeholder='pronome'
                     onChange={handleChange} />
-                    <input type={(dateFocused || signupData.birthday) ? "date" : "text"}
+                    {/* <input type={(dateFocused || signupData.birthday) ? "date" : "text"}
                     name="birthday" placeholder='data de nascimento*'
                     onChange={handleChange} min={"1900-01-01"}
                     onFocus={() => setDateFocused(true)} onBlur={() => setDateFocused(false)}
-                    max={new Date().toISOString().split("T")[0]} />
+                    max={new Date().toISOString().split("T")[0]} /> */}
+                    <MarteDatePicker onChange={handleChange}></MarteDatePicker>
                 </div>
                 <input type='text' name='email' placeholder='email*'
                 onChange={handleChange} />
