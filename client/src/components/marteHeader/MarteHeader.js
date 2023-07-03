@@ -6,12 +6,12 @@ import AuthDialog, { AuthDialogScreen } from '../authDialog/AuthDialog';
 import headerButtons from "../../resources/headerButtons.json";
 import HeaderButton from './headerButton/HeaderButton';
 import AppContext from '../../contexts/App.context';
+import MarteLogo from '../marteLogo/MarteLogo';
 
 import "./MarteHeader.scss";
-import logo from '../../assets/logos/marte-logo.svg';
 
 function MarteHeader() {
-    const { loggedUser } = useContext(AppContext);
+    const { loggedUser, theme } = useContext(AppContext);
     
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     // const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -32,7 +32,7 @@ function MarteHeader() {
             </div>
             <div className='logo'>
                 <Link to="/">
-                    <img src={logo} alt='logo' />
+                    <MarteLogo />
                 </Link>
             </div>
             <div className='right'>

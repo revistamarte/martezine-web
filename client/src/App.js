@@ -7,15 +7,18 @@ import "./App.scss";
 import "./Colors.scss";
 import browserStorageService from "./services/browserStorage";
 import userService from "./services/user";
+import AppTheme from "./constants/appTheme";
 
 function App() {
 
 	const [ tokens, setTokens ] = useState(null);
 	const [ loggedUser, setLoggedUser ] = useState(null);
+	const [ theme, setTheme ] = useState(AppTheme.RED);
 
 	const appContextValue = {
 		tokens, setTokens,
-		loggedUser, setLoggedUser
+		loggedUser, setLoggedUser,
+		theme, setTheme
 	};
 
 	useEffect(() => {
@@ -23,7 +26,6 @@ function App() {
 			const accessToken = await browserStorageService.getAccessToken();
 			const refreshToken = browserStorageService.getRefreshToken();
 			if (accessToken != null && refreshToken != null) {
-				debugger
 				const userData = (await userService.getLoggedUser(accessToken)).data;
 				setTokens({
 					accessToken, refreshToken

@@ -1,4 +1,6 @@
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
+import AppContext from "../../contexts/App.context";
 import MarteHeader from "../../components/marteHeader/MarteHeader";
 import Home from "../home/Home";
 import Editions from "../editions/Editions";
@@ -8,9 +10,10 @@ import About from "../about/About";
 import "./MainApp.scss";
 
 function MainApp() {
+    const { theme } = useContext(AppContext);
 
     return (
-        <div className="main-app">
+        <div className={`main-app ${theme}`}>
             <div className={"main-app-content"}>
                 <MarteHeader />
                 <Routes>
