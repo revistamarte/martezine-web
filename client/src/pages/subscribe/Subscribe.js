@@ -8,7 +8,7 @@ function Subscribe() {
     const { setTheme } = useContext(AppContext);
 
     useEffect(() => {
-        setTheme(AppTheme.WHITE);
+        setTheme(AppTheme.RED);
     }, [setTheme]);
 
     return (
