@@ -20,6 +20,7 @@ function MainApp() {
                     <Route path="/sobre" element={<About />} />
                     <Route path="*" element={<div>404</div>} />
                 </Routes>
+                {/* Footer */}
             </div>
         </div>
     )
