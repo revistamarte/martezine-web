@@ -10,10 +10,10 @@ import AppContext from '../../contexts/App.context';
 import "./MarteHeader.scss";
 import logoRed from '../../assets/logos/marte-logo.svg';
 import logoWhite from '../../assets/logos/marte-logo-white.svg';
-import AppBackground from '../../constants/appBackground';
+import AppTheme from '../../constants/appTheme';
 
 function MarteHeader() {
-    const { loggedUser, background } = useContext(AppContext);
+    const { loggedUser, theme } = useContext(AppContext);
     
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     // const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -34,7 +34,7 @@ function MarteHeader() {
             </div>
             <div className='logo'>
                 <Link to="/">
-                    {background === AppBackground.WHITE ?
+                    {theme === AppTheme.WHITE ?
                     <img src={logoRed} alt='logo' /> : <img src={logoWhite} alt='logo' />}
                 </Link>
             </div>

@@ -7,18 +7,18 @@ import "./App.scss";
 import "./Colors.scss";
 import browserStorageService from "./services/browserStorage";
 import userService from "./services/user";
-import AppBackground from "./constants/appBackground";
+import AppTheme from "./constants/appTheme";
 
 function App() {
 
 	const [ tokens, setTokens ] = useState(null);
 	const [ loggedUser, setLoggedUser ] = useState(null);
-	const [ background, setBackground ] = useState(AppBackground.RED);
+	const [ theme, setTheme ] = useState(AppTheme.RED);
 
 	const appContextValue = {
 		tokens, setTokens,
 		loggedUser, setLoggedUser,
-		background, setBackground
+		theme, setTheme
 	};
 
 	useEffect(() => {

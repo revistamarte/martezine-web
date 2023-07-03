@@ -1,17 +1,15 @@
 import { useContext, useEffect } from "react";
-import AppBackground from "../../constants/appBackground";
+import AppTheme from "../../constants/appTheme";
 import AppContext from "../../contexts/App.context";
 
 import "./Subscribe.scss";
 
-function Subscribe({ background }) {
-    const { setBackground } = useContext(AppContext);
+function Subscribe() {
+    const { setTheme } = useContext(AppContext);
 
     useEffect(() => {
-        setBackground(
-            background ? background : AppBackground.WHITE
-        );
-    }, []);
+        setTheme(AppTheme.WHITE);
+    }, [setTheme]);
 
     return (
         <div className="marte-subscribe">

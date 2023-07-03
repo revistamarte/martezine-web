@@ -1,18 +1,16 @@
 
 import { useContext, useEffect } from "react";
 import AppContext from "../../contexts/App.context";
-import AppBackground from "../../constants/appBackground";
+import AppTheme from "../../constants/appTheme";
 
 import "./About.scss";
 
-function About({ background }) {
-    const { setBackground } = useContext(AppContext);
+function About() {
+    const { setTheme } = useContext(AppContext);
 
     useEffect(() => {
-        setBackground(
-            background ? background : AppBackground.WHITE
-        );
-    }, []);
+        setTheme(AppTheme.WHITE);
+    }, [setTheme]);
 
     return (
         <div className="marte-about">

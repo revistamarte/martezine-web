@@ -15,12 +15,12 @@ import "./HeaderButton.scss"
  * @param {HeaderButtonParams} param0
  */
 function HeaderButton({ to, text, onClick }) {
-    const {background} = useContext(AppContext);
+    const {theme} = useContext(AppContext);
 
     return (
         <NavLink to={to} className={({isActive}) => (isActive && to ? 'header-button active' : 'header-button')}
         onClick={onClick}>
-            <div className={background}>
+            <div className={theme}>
                 {text}
             </div>
         </NavLink>

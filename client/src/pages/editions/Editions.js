@@ -1,17 +1,15 @@
 import { useContext, useEffect } from "react";
-import AppBackground from "../../constants/appBackground";
+import AppTheme from "../../constants/appTheme";
 import AppContext from "../../contexts/App.context";
 
 import "./Editions.scss";
 
-function Editions({ background }) {
-    const { setBackground } = useContext(AppContext);
+function Editions() {
+    const { setTheme } = useContext(AppContext);
 
     useEffect(() => {
-        setBackground(
-            background ? background : AppBackground.WHITE
-        );
-    }, []);
+        setTheme(AppTheme.BLUE);
+    }, [setTheme]);
 
     return (
         <div className="marte-editions">

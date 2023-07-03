@@ -6,17 +6,17 @@
         padding: 5px 10px;
         border-radius: 17px;
         
-        &.background-white {
+        &.theme-white {
             color: $marte-white;
             background-color: $marte-red;
         }
         
-        &.background-red {
+        &.theme-red {
             color: $marte-red;
             background-color: $marte-white;
         }
         
-        &.background-blue {
+        &.theme-blue {
             color: $marte-blue;
             background-color: $marte-white;
         }
