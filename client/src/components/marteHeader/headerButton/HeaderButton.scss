@@ -1,17 +1,34 @@
 @import "../../../Colors.scss";
 
 .header-button {
-    color: $marte-white;
     text-decoration: none;
     > div {
-        background-color: $marte-red;
         padding: 5px 10px;
         border-radius: 17px;
+        
+        &.background-white {
+            color: $marte-white;
+            background-color: $marte-red;
+        }
+        
+        &.background-red {
+            color: $marte-red;
+            background-color: $marte-white;
+        }
+        
+        &.background-blue {
+            color: $marte-blue;
+            background-color: $marte-white;
+        }
     }
     &.active {
-        text-decoration: underline;
+        >div {
+            text-decoration: underline;
+        }
     }
     &:hover {
-        text-decoration: underline;
+        >div {
+            text-decoration: underline;
+        }
     }
 }

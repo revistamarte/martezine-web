@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import AppContext from "../../../contexts/App.context";
 
 import "./HeaderButton.scss"
 
@@ -13,10 +15,12 @@ import "./HeaderButton.scss"
  * @param {HeaderButtonParams} param0
  */
 function HeaderButton({ to, text, onClick }) {
+    const {background} = useContext(AppContext);
+
     return (
         <NavLink to={to} className={({isActive}) => (isActive && to ? 'header-button active' : 'header-button')}
         onClick={onClick}>
-            <div>
+            <div className={background}>
                 {text}
             </div>
         </NavLink>

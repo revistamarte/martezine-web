@@ -7,11 +7,11 @@ function MarteDatePicker({ onChange }) {
         event.preventDefault();
         event = event.nativeEvent;
         let newDate = date;
-        if (event.inputType == "insertText") {
+        if (event.inputType === "insertText") {
             if (/^\d+$/.test(event.data)) {
                 newDate = (date + event.data).slice(0, 8);
             }
-        } else if (event.inputType == "deleteContentBackward") {
+        } else if (event.inputType === "deleteContentBackward") {
             newDate = date.slice(0, date.length - 1);
         } else {
             newDate = event.srcElement.value.split("/").join("");
@@ -77,9 +77,9 @@ const fixDate = (day, month, year) => {
 
     if (d > -1 && m > -1 && y > -1 &&
         `${year}`.length >= 4 && `${month}`.length >= 2 && `${day}`.length >= 2) {
-        let isLeapYear = (y % 4 == 0 && y % 100 != 0) || y % 400 == 0;
-        let max = [1, 3, 5, 7, 8, 10, 12].indexOf(m) != -1 ? 31 : 30;
-        if (m == 2) {
+        let isLeapYear = (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+        let max = [1, 3, 5, 7, 8, 10, 12].indexOf(m) !== -1 ? 31 : 30;
+        if (m === 2) {
             if (!isLeapYear) {
                 max = 28;
             } else {
@@ -89,9 +89,9 @@ const fixDate = (day, month, year) => {
         d = clamp(d, 1, max);
     }
 
-    day = d > -1 ? day.length == `${d}`.length ? `${d}` : `0${d}` : null;
-    month = m > -1 ? month.length == `${m}`.length ? `${m}` : `0${m}` : null;
-    year = y > -1 ? year.length == `${y}`.length ? `${y}` : `${"0".repeat(year.length - `${y}`.length)}${y}` : null;
+    day = d > -1 ? day.length === `${d}`.length ? `${d}` : `0${d}` : null;
+    month = m > -1 ? month.length === `${m}`.length ? `${m}` : `0${m}` : null;
+    year = y > -1 ? year.length === `${y}`.length ? `${y}` : `${"0".repeat(year.length - `${y}`.length)}${y}` : null;
 
     return [day, month, year];
 }

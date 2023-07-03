@@ -8,6 +8,16 @@
     align-content: center;
     justify-content: center;
 
+    &.background-white {
+        background-color: $marte-white;
+    }
+    &.background-red {
+        background-color: $marte-red;
+    }
+    &.background-blue {
+        background-color: $marte-blue;
+    }
+
     .main-app-content {
         max-width: $main-app-width;
         width: $main-app-width;
