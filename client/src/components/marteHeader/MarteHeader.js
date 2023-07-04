@@ -11,7 +11,7 @@ import MarteLogo from '../marteLogo/MarteLogo';
 import "./MarteHeader.scss";
 
 function MarteHeader() {
-    const { loggedUser, theme } = useContext(AppContext);
+    const { loggedUser } = useContext(AppContext);
     
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     // const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -49,7 +49,7 @@ function MarteHeader() {
                             <HeaderButton text='login' onClick={() => setIsLoginOpen(true)} />
                         )}
                     </li>
-                    <Modal open={isLoginOpen}>
+                    <Modal open={isLoginOpen} clickOutside={() => setIsLoginOpen(false)}>
                         <AuthDialog onClose={() => setIsLoginOpen(false)}
                         initialScreen={
                             loggedUser ? AuthDialogScreen.USER : AuthDialogScreen.LOGIN

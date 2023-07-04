@@ -14,8 +14,8 @@ import "./LoginDialog.scss";
 
 function LoginDialog({ onClose }) {
     const { setScreen } = useContext(AuthDialogContext);
-
     const { setTokens, setLoggedUser } = useContext(AppContext);
+    
     const [loginData, setLoginData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
@@ -60,7 +60,6 @@ function LoginDialog({ onClose }) {
     }
 
     const onLoginSucceeded = async (res) => {
-        console.log(res.data);
         setTokens(res.data);
         await browserStorageService.saveAccessToken(res.data.accessToken);
         browserStorageService.saveRefreshToken(res.data.refreshToken);

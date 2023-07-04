@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import validator from "validator";
 import MarteDialog from '../../marteDialog/MarteDialog';
+import MarteDatePicker from '../../marteDatePicker/MarteDatePicker';
+import authService from '../../../services/auth';
+import AuthDialogContext from '../../../contexts/AuthDialog.context';
+import { AuthDialogScreen } from '../AuthDialog';
 
 import show from "../../../assets/icons/show.svg";
 import hide from "../../../assets/icons/hide.svg";
 import "./SignupDialog.scss";
-import MarteDatePicker from '../../marteDatePicker/MarteDatePicker';
-import authService from '../../../services/auth';
+import Pronouns from '../../../constants/pronouns';
 
 function SignupDialog({ onClose }) {
+    const { setScreen, setSignupPronouns } = useContext(AuthDialogContext);
+
     const [signupData, setSignupData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
@@ -42,13 +47,20 @@ function SignupDialog({ onClose }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setScreen(AuthDialogScreen.WELCOME); return;
         const errors = validateData();
         if (Object.keys(errors).length > 0) {
             setFormErrors(errors);
             return;
         }
         setFormErrors({});
-        authService.signup(signupData);
+        authService.signup(signupData)
+        .then(res => {
+            setScreen(AuthDialogScreen.WELCOME);
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     const getErrorToShow = () => {

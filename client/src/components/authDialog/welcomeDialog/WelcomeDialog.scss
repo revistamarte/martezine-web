@@ -1,0 +1,31 @@
+.welcome {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 60px;
+
+    .text {
+        font-size: 28px;
+        font-weight: 400;
+    }
+    .welcome-text {
+        margin-top: 18px;
+        margin-bottom: 18px;
+        font-size: 92px;
+        font-family: "neue-haas-grotesk-display", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        line-height: 92px;
+    }
+    .resend {
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 400;
+        div {
+            display: inline-block;
+        }
+    }
+}
