@@ -98,3 +98,14 @@ input[type=date] {
         margin-left: 5px;
     }
 }
+button {
+    border: none;
+    box-shadow: none;
+    font-size: 16px;
+    padding: 6px 37px;
+    border-radius: 16px;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}

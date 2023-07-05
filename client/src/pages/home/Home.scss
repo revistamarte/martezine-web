@@ -1,6 +1,64 @@
-.marte-home {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+@import "../../Colors.scss";
 
+.marte-home {
+    color: $marte-white;
+    
+    .intro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background:
+            no-repeat url("../../assets/images/conversinhas-white.png"),
+            no-repeat url("../../assets/images/conversinhas-white.png");
+
+        background-position: calc(50% - 724px) 10px, calc(50% + 740px) 100px;
+        
+        .title {
+            font-size: 86px;
+            font-family: "neue-haas-grotesk-display", sans-serif;
+            font-weight: 600;
+            font-style: normal;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 33px;
+
+            >div {
+                font-family: "neue-haas-grotesk-display", sans-serif;
+                font-weight: 400;
+                font-style: italic;
+                display: inline-block;
+            }
+        }
+
+        .text-type-1 {
+            font-size: 24px;
+            max-width: 735px;
+            text-align: center;
+            line-height: normal;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .text-type-2 {
+            font-size: 24px;
+            max-width: 735px;
+            text-align: center;
+            line-height: normal;
+            font-weight: 500;
+            margin-bottom: 44px;
+        }
+
+        .join {
+            margin-top: 25px;
+            margin-bottom: 150px;
+
+            button {
+                font-size: 18px;
+                padding: 18px 42px;
+                color: $marte-red;
+                border-radius: 50px;
+                line-height: 22px;
+            }
+        }
+    }
 }
