@@ -8,6 +8,7 @@ import Subscribe from "../subscribe/Subscribe";
 import About from "../about/About";
 
 import "./MainApp.scss";
+import NotFound from "../notFound/NotFound";
 
 function MainApp() {
     const { theme } = useContext(AppContext);
@@ -21,7 +22,7 @@ function MainApp() {
                     <Route path="/edicoes" element={<Editions />} />
                     <Route path="/assinar" element={<Subscribe />} />
                     <Route path="/sobre" element={<About />} />
-                    <Route path="*" element={<div>404</div>} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
         </div>

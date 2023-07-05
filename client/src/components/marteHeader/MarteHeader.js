@@ -46,7 +46,7 @@ function MarteHeader() {
                         {loggedUser ? (
                             <HeaderButton text={loggedUser.fullname.split(" ")[0]} onClick={() => setIsLoginOpen(true)} />
                         ) : (
-                            <HeaderButton text='login' onClick={() => setIsLoginOpen(true)} />
+                            <HeaderButton text='login!' onClick={() => setIsLoginOpen(true)} />
                         )}
                     </li>
                     <Modal open={isLoginOpen} clickOutside={() => setIsLoginOpen(false)}>
