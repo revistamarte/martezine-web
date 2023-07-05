@@ -9,7 +9,6 @@ import { AuthDialogScreen } from '../AuthDialog';
 import show from "../../../assets/icons/show.svg";
 import hide from "../../../assets/icons/hide.svg";
 import "./SignupDialog.scss";
-import Pronouns from '../../../constants/pronouns';
 
 function SignupDialog({ onClose }) {
     const { setScreen, setSignupPronouns } = useContext(AuthDialogContext);
@@ -36,30 +35,51 @@ function SignupDialog({ onClose }) {
         } else if (!validator.isLength(signupData.password, {min: 6})) {
             errors.password = "insira uma senha de pelo menos 6 caracteres";
         }
+        if (!signupData.terms) {
+            errors.password = "você precisa aceitar os termos de uso e a política de privacidade";
+        }
         return errors;
     }
 
     const handleChange = (event) => {
-        const {name, value} = event.target;
-        if (value === undefined) return;
-        setSignupData((prevData) => ({...prevData, [name]: value}));
+        const {name, value, checked} = event.target;
+        if (event.target.type === "checkbox") {
+            setSignupData((prevData) => ({...prevData, [name]: checked}));
+        } else {
+            setSignupData((prevData) => ({...prevData, [name]: value}));
+        }
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setScreen(AuthDialogScreen.WELCOME); return;
         const errors = validateData();
         if (Object.keys(errors).length > 0) {
             setFormErrors(errors);
             return;
         }
         setFormErrors({});
-        authService.signup(signupData)
-        .then(res => {
-            setScreen(AuthDialogScreen.WELCOME);
-        })
-        .catch(err => {
-            console.log(err);
+        // authService.signup(signupData).then(onSignupSucceeded).catch(onSignupFailed);
+        onSignupSucceeded();
+    }
+
+    const onSignupSucceeded = (res) => {
+        authService.sendConfirmation(signupData.email);
+        setSignupPronouns(signupData.pronouns);
+        setScreen(AuthDialogScreen.WELCOME);
+    }
+
+    const onSignupFailed = (reason) => {
+        const authError = {}
+        if (
+            reason.response &&
+            (reason.response?.status === 400 || reason.response.status === 404)
+        ) {
+            authError.message = "email já cadastrado";
+        } else {
+            authError.message = "algo deu errado";
+        }
+        setFormErrors({
+            auth: authError
         });
     }
 
@@ -90,11 +110,6 @@ function SignupDialog({ onClose }) {
                 <div className='pronouns-and-birthday'>
                     <input type='text' name="pronouns" placeholder='pronome'
                     onChange={handleChange} />
-                    {/* <input type={(dateFocused || signupData.birthday) ? "date" : "text"}
-                    name="birthday" placeholder='data de nascimento*'
-                    onChange={handleChange} min={"1900-01-01"}
-                    onFocus={() => setDateFocused(true)} onBlur={() => setDateFocused(false)}
-                    max={new Date().toISOString().split("T")[0]} /> */}
                     <MarteDatePicker onChange={handleChange}></MarteDatePicker>
                 </div>
                 <input type='text' name='email' placeholder='email*'
@@ -108,7 +123,7 @@ function SignupDialog({ onClose }) {
                 </div>
                 <div className='form-footer'>
                     <div>
-                        <input type='checkbox' name='terms' />
+                        <input type='checkbox' name='terms' onChange={handleChange} />
                         Aceito os <a className='has-link' href='/'>
                             termos de uso
                         </a> e a <a className='has-link' href='/'>

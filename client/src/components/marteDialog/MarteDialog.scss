@@ -40,7 +40,11 @@
     display: flex;
     justify-content: space-between;
     border-radius: 20px 20px 0 0;
-    .link > a {
+    .clickable {
         color: $marte-red;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }

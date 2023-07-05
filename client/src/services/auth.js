@@ -15,10 +15,22 @@ export function token(refreshToken) {
     });
 }
 
+export function confirmation(token) {
+    return axios.post(globalConfig.apiUrl + "/confimation/" + token);
+}
+
+export function sendConfirmation(email) {
+    return axios.post(globalConfig.apiUrl + "/confirmation", {
+        email: email
+    });
+}
+
 const authService = {
     signup,
     login,
     token,
+    confirmation,
+    sendConfirmation
 }
 
 export default authService;

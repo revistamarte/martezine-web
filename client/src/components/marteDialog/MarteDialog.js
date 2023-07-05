@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import closeIcon from "../../assets/icons/close-icon.svg";
 import "./MarteDialog.scss";
@@ -13,9 +12,9 @@ function MarteDialog({ onClose, title, subtitle, warning, children, maxWidth }) 
                         <strong className='font-bold'>{warning.title}: </strong>
                         {warning.message}
                     </div>
-                    { warning.linkMessage ? <>
-                        <div className='link'>
-                            <Link to={warning.link} onClick={onClose}>{warning.linkMessage}</Link>
+                    { warning.clickableMessage ? <>
+                        <div className='clickable' onClick={warning.onClick}>
+                            {warning.clickableMessage}
                         </div>
                     </> : null}
                 </div>

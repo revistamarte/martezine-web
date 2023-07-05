@@ -70,7 +70,7 @@ function LoginDialog({ onClose }) {
 
     const onLoginFailed = (reason) => {
         const authError = {}
-            if (
+        if (
             reason.response &&
             (reason.response?.status === 400 || reason.response.status === 404)
         ) {
@@ -80,8 +80,8 @@ function LoginDialog({ onClose }) {
             reason.response.status === 403
         ) {
             authError.message = "confirme seu email";
-            authError.linkMessage = "reenviar email de confirmação";
-            authError.link = "/confirmar";
+            authError.clickableMessage = "reenviar email de confirmação";
+            authError.onClick = () => setScreen(AuthDialogScreen.RESEND_CONFIRMATION);
         } else {
             authError.message = "algo deu errado";
         }
@@ -98,8 +98,8 @@ function LoginDialog({ onClose }) {
             return {
                 title: "!erro",
                 message: error.message,
-                linkMessage: error.linkMessage,
-                link: error.link
+                clickableMessage: error.clickableMessage,
+                onClick: error.onClick
             }
         } else {
             return {
@@ -140,4 +140,4 @@ function LoginDialog({ onClose }) {
     )
 }
 
-export default LoginDialog
+export default LoginDialog;
