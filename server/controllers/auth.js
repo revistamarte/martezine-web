@@ -101,12 +101,11 @@ export async function sendConfirmationEmail(user) {
         name: user.name,
         redirectionUrl: redirectionUrl
     });
-    // const info = await Mailer.sendMail({
-    //     to: user.email,
-    //     subject: "Confirm you account",
-    //     body: emailBody
-    // });
-    const info = {ok: "ok"};
+    const info = await Mailer.sendMail({
+        to: user.email,
+        subject: "Confirm you account",
+        body: emailBody
+    });
     return info;
 }
 
