@@ -51,7 +51,6 @@ function ResetDialog({ onClose }) {
     }
 
     const handleChange = (event) => {
-        console.log(resetData);
         const { name, value } = event.target;
         setResetData((prevData) => ({ ...prevData, [name]: value }));
     }

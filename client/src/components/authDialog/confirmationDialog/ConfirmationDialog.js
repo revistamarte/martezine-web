@@ -61,7 +61,6 @@ function ConfirmationDialog({ onClose }) {
     }
         
     const handleChange = (event) => {
-        console.log(confirmationData);
         const { name, value } = event.target;
         setConfirmationData((prevData) => ({ ...prevData, [name]: value }));
     }

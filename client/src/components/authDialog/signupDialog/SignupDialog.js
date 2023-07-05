@@ -74,7 +74,6 @@ function SignupDialog({ onClose }) {
             reason.response &&
             reason.response?.status === 400
         ) {
-            console.log(reason);
             authError.message = "email ja registrado";
         } else {
             authError.message = "algo deu errado";
