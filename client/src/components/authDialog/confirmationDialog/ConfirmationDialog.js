@@ -42,9 +42,16 @@ function ConfirmationDialog({ onClose }) {
         const authError = {}
         if (
             reason.response &&
-            (reason.response?.status === 400 || reason.response.status === 404)
+            reason.response.status === 404
         ) {
-            authError.message = "email não encontrado ou já confirmado";
+            authError.message = "email não encontrado";
+        } else if (
+            reason.response &&
+            reason.response.status === 400
+        ) {    
+            authError.message = "email já confirmado";
+            authError.clickableMessage = "ir para login";
+            authError.onClick = () => setScreen(AuthDialogScreen.LOGIN);
         } else {
             authError.message = "algo deu errado";
         }
@@ -66,7 +73,9 @@ function ConfirmationDialog({ onClose }) {
         if (typeof error === 'object') {
             return {
                 title: "!erro",
-                message: error.message
+                message: error.message,
+                clickableMessage: error.clickableMessage,
+                onClick: error.onClick
             }
         } else {
             return {

@@ -58,8 +58,8 @@ function SignupDialog({ onClose }) {
             return;
         }
         setFormErrors({});
-        // authService.signup(signupData).then(onSignupSucceeded).catch(onSignupFailed);
-        onSignupSucceeded();
+        authService.signup(signupData).then(onSignupSucceeded).catch(onSignupFailed);
+        // onSignupSucceeded();
     }
 
     const onSignupSucceeded = (res) => {
@@ -72,9 +72,10 @@ function SignupDialog({ onClose }) {
         const authError = {}
         if (
             reason.response &&
-            (reason.response?.status === 400 || reason.response.status === 404)
+            reason.response?.status === 400
         ) {
-            authError.message = "email já cadastrado";
+            console.log(reason);
+            authError.message = "email ja registrado";
         } else {
             authError.message = "algo deu errado";
         }

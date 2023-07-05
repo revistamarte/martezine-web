@@ -40,6 +40,8 @@ export async function getUserByEmail(email) {
  * @param {UserModel} model
  */
 export async function createUser(model) {
+    const user = await User.findOne({ email: model.email });
+    if (user != null) throw new HttpError(400, "Email already registered.");
     const userModel = new User({
         fullname: model.fullname,
         birthday: model.birthday,
