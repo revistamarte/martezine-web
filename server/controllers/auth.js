@@ -98,7 +98,6 @@ export async function sendConfirmationEmail(user) {
     const token = await generateEmailConfirmationToken(user.toJSON());
     const redirectionUrl = `${process.env.HOST}/confirmation/${token}`
     const emailBody = emailConfirmationTemplate({
-        name: user.name,
         redirectionUrl: redirectionUrl
     });
     const info = await Mailer.sendMail({

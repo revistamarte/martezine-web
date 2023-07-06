@@ -11,13 +11,13 @@
         {
             "to": "/assinar",
             "text": "eu quero!"
-        },
-        {
-            "to": "/sobre",
-            "text": "sobre"
         }
     ],
     "right": [
+        {
+            "to": "/sobre",
+            "text": "sobre"
+        },
         {
             "to": "https://www.instagram.com/marte.zine/",
             "text": "@marte.zine"

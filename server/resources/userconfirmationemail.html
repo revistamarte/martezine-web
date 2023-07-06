@@ -1,17 +1,99 @@
-<div>
-    <label>
-        Hello {{name}}!
-    </label>
-    <p>
-        Please confirm you email hahahahahaah
-    </p>
-    <a href="{{redirectionUrl}}">
-        <button>Confirm user</button>
-    </a>
-    <p>
-        or paste the link below in your browser url:
-    </p>
-    <a>
-        {{redirectionUrl}}
-    </a>
-</div>
+<!DOCTYPE html>
+<html amp4email>
+    <head>
+        <style>
+            .email-body {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                color: #F2EAE9;
+            }
+            .card {
+                width: 700px;
+                background: #B7271A;
+            }
+            .content {
+                padding: 100px 90px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .content > svg {
+                width: 64px;
+            }
+            .content > .title {
+                font-size: 75px;
+                font-family: "neue-haas-grotesk-display", sans-serif;
+                font-weight: 600;
+                font-style: normal;
+                text-align: center;
+                margin-top: 10px;
+                margin-bottom: 20px;
+                line-height: 75px;
+            }
+            .content > .title>div {
+                font-family: "neue-haas-grotesk-display", sans-serif;
+                font-weight: 400;
+                font-style: italic;
+                display: inline-block;
+            }
+            .content > .text {
+                width: 480px;
+                text-align: center;
+                font-family: Nitti;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 22px;
+                margin-bottom: 30px;
+            }
+            .content > .confirm-button {
+                margin-bottom: 30px;
+            }
+            .content > .confirm-button > a > button {
+                border: none;
+                box-shadow: none;
+                font-size: 20px;
+                padding: 12px 30px;
+                border-radius: 50px;
+                cursor: pointer;
+                background: #F2EAE9;
+                font-family: Nitti;
+                font-style: normal;
+                font-weight: 400;
+                color: #B7271A;
+            }
+            .content > .redirect-text {
+                text-align: center;
+                font-size: 15px;
+                font-family: Nitti;
+                font-style: normal;
+                font-weight: 400;
+                margin-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="https://use.typekit.net/aoi8kcq.css">
+    </head>
+    <body>
+        <div class="email-body">
+            <div class="card">
+                <div class="content">
+                    <img src="https://imgur.com/a/KZYa9SD">
+                    <h1 class="title">
+                        <div>oi,</div> bem vindos<br />à marte.
+                    </h1>
+                    <div class="text">
+                        <strong>marte já tá logo ali!</strong>
+                        <br/>
+                        clique no botão abaixo para finalizar o seu cadastro e descobrir mais sobre esse planetinha.
+                    </div>
+                    <div class="confirm-button">
+                        <a href="{{redirectionUrl}}"><button>confirme seu email</button></a>
+                    </div>
+                    <a class="redirect-text">
+                        {{redirectionUrl}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
