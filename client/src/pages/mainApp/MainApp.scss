@@ -19,8 +19,8 @@
     }
 
     .main-app-content {
-        max-width: $main-app-width;
-        width: $main-app-width;
+        max-width: 100vw;
+        width: 100vw;
 
         &.debug {
             background-color: #ff000025;

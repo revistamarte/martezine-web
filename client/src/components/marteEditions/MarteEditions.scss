@@ -1,0 +1,29 @@
+@import "../../Colors.scss";
+
+.marte-editions {
+    .header {
+        background-color: $marte-white;
+        color: $marte-red;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 30px 0;
+        border-radius: 30px 30px 0 0;
+        
+        >div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            >img {
+                margin: 0 20px 0 20px;
+                transform: rotate(18deg);
+            }
+            span {
+                font-family: "neue-haas-grotesk-display", sans-serif;
+                font-size: 46px;
+                font-style: normal;
+                font-weight: 600;
+            }
+        }
+    }
+}

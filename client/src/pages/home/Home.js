@@ -4,6 +4,7 @@ import AppTheme from "../../constants/appTheme";
 
 import "./Home.scss";
 import image from "../../assets/images/conversinhas-white.png";
+import MarteEditions from "../../components/marteEditions/MarteEditions";
 
 function Home() {
     const { setTheme } = useContext(AppContext);
@@ -29,6 +30,7 @@ function Home() {
                     <button>quero embarcar<br/>nessa viagem!</button>
                 </div>
             </div>
+            <MarteEditions />
         </div>
     )
 }
