@@ -1,11 +1,14 @@
 import React from 'react';
+import redStar from "../../assets/icons/red-star.svg";
+import CronophobiaEdition from './cronophobiaEdition/CronophobiaEdition';
+import SolitudeEdition from './solitudeEdition/SolitudeEdition';
+import ReminiscenciaEdition from './reminiscenciaEdition/ReminiscenciaEdition';
 
 import "./MarteEditions.scss";
-import redStar from "../../assets/icons/red-star.svg";
 
 function MarteEditions() {
     return (
-        <div className="marte-editions">
+        <div className="marte-editions-home">
             <div className="header">
                 <div>
                     <span>nossas</span>
@@ -13,6 +16,9 @@ function MarteEditions() {
                     <span>edições</span>
                 </div>
             </div>
+            <ReminiscenciaEdition />
+            <SolitudeEdition />
+            <CronophobiaEdition />
         </div>
     );
 }
