@@ -1,0 +1,61 @@
+@import "../../Colors.scss";
+
+.marte-footer {
+
+    width: 100%;
+    color: $marte-white;
+    display: flex;
+    justify-content: space-between;
+    
+    .logo-and-text {
+        padding: 72px 110px;
+        display: flex;
+        gap: 20px;
+
+
+        .footer-text {
+            color: #F2EAE9;
+            span {
+                font-family: "neue-haas-grotesk-display", sans-serif;
+                font-size: 31px;
+                font-style: normal;
+                font-weight: 530;
+            }
+        }
+    }
+
+
+
+
+    .social-and-contracts {
+        padding: 72px 110px;
+        display: flex;
+        flex-direction: column;
+        gap:10px;
+        align-items: flex-end;
+
+
+        .clicable-contract-links {
+            color: #FFF;        
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 50;
+            text-decoration-line: underline;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+
+            /*.user-terms {
+                
+            }*/
+        }
+
+        .social-logos {
+            display: flex;
+            
+            align-items: center;
+        }
+    }
+    
+}
