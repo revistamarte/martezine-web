@@ -1,11 +1,19 @@
 @import "../../Colors.scss";
 
 .marte-footer {
-
     width: 100%;
-    color: $marte-white;
+    &.theme-white {
+        color: $marte-red;
+    }
+    &.theme-red {
+        color: $marte-white;
+    }
+    &.theme-blue {
+        color: $marte-white;
+    }
     display: flex;
     justify-content: space-between;
+    margin-top: auto;
     
     .logo-and-text {
         padding: 72px 110px;
@@ -15,7 +23,6 @@
 
 
         .footer-text {
-            color: #F2EAE9;
             span {
                 font-family: "neue-haas-grotesk-display", sans-serif;
                 font-size: 31px;
@@ -37,7 +44,6 @@
 
 
         .clicable-contract-links {
-            color: #FFF;        
             font-size: 18px;
             font-style: normal;
             font-weight: 50;
