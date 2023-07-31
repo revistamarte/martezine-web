@@ -55,6 +55,13 @@
             display: flex;
             
             align-items: center;
+
+            button {
+                background-color: transparent;
+                height:min-content;
+                width:min-content;
+                padding: 0px 0px;
+            }
         }
     }
     

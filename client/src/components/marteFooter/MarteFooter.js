@@ -40,9 +40,17 @@ function MarteFooter() {
                     </span>
                 </div>
                 <div className='social-logos'>
-                    <img src={pinterest}/>
-                    <img src={instagram}/>
-                    <img src={mail}/>
+                    <a href='https://br.pinterest.com/revistamarte/' target="_blank">
+                        <button><img src={pinterest}/></button>
+                    </a>
+                    <a href='https://www.instagram.com/marte.zine/' target="_blank">
+                        <button><img src={instagram}/></button>
+                    </a>
+                    <a href='https://www.youtube.com/watch?v=z7rxl5KsPjs' target="_blank">
+                        <button><img src={mail}/></button>
+                    </a>
+                    
+                    
                 </div>
             </div>
         </div>
