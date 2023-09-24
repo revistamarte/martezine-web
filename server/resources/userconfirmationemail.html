@@ -1,17 +1,28 @@
-<div>
-    <label>
-        Hello {{name}}!
-    </label>
-    <p>
-        Please confirm you email hahahahahaah
-    </p>
-    <a href="{{redirectionUrl}}">
-        <button>Confirm user</button>
-    </a>
-    <p>
-        or paste the link below in your browser url:
-    </p>
-    <a>
-        {{redirectionUrl}}
-    </a>
-</div>
+<!DOCTYPE html>
+<html amp4email>
+    <body>
+        <div class="email-body">
+            <div class="card">
+                <div class="content">
+                    <h1 class="title">
+                        oi, bem vindos à marte.
+                    </h1>
+                    <div class="text">
+                        <strong>marte já tá logo ali!</strong>
+                        <br/>
+                        clique no botão abaixo para finalizar o seu cadastro e descobrir mais sobre esse planetinha.
+                    </div>
+                    <div class="confirm-button">
+                        <a href="{{redirectionUrl}}"><button>confirme seu email</button></a>
+                    </div>
+                    <div class="text">
+                        ou copie o link e cole no seu navegador: 
+                        <a href="{{redirectionUrl}}" class="redirect-text">
+                            {{redirectionUrl}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

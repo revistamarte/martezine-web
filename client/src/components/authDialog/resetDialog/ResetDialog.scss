@@ -1,0 +1,19 @@
+@import "../../../Colors.scss";
+
+.reset-form {
+    .footer {
+        display: flex;
+        justify-content: right;
+    }
+    .email {
+        margin-bottom: 30px;
+    }
+    input {
+        margin-bottom: 30px;
+        &[type=submit] {
+            cursor: pointer;
+            background-color: $marte-white;
+            color: $marte-red;
+        }
+    }
+}

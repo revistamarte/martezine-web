@@ -1,0 +1,34 @@
+@import "../../../Colors.scss";
+
+.header-button {
+    text-decoration: none;
+    > div {
+        padding: 7px 15px;
+        border-radius: 50px;
+        
+        &.theme-white {
+            color: $marte-white;
+            background-color: $marte-red;
+        }
+        
+        &.theme-red {
+            color: $marte-red;
+            background-color: $marte-white;
+        }
+        
+        &.theme-blue {
+            color: $marte-blue;
+            background-color: $marte-white;
+        }
+    }
+    &.active {
+        >div {
+            text-decoration: underline;
+        }
+    }
+    &:hover {
+        >div {
+            text-decoration: underline;
+        }
+    }
+}

@@ -10,6 +10,7 @@ import HttpError from "../models/error.js";
 import Mailer from "../models/mailer.js";
 import Credential from "../models/credential.js";
 import { UserRole, TokenType } from "../models/enums.js";
+import * as uuid from "uuid";
 import "dotenv/config.js";
 
 const emailConfirmationTemplate = handlebars.compile(
@@ -81,7 +82,7 @@ async function generateRefreshToken(user) {
 
 async function generateEmailConfirmationToken(user) {
     await deleteTokensByUserId(user.id, TokenType.USER_CONFIRMATION);
-    const token = jwt.sign(user, process.env.EMAIL_TOKEN_SECRET, { expiresIn: 0 });
+    const token = uuid.v4();
     const tokenModel = new Token({
         token: token,
         userId: user.id,
@@ -96,9 +97,8 @@ async function generateEmailConfirmationToken(user) {
  */
 export async function sendConfirmationEmail(user) {
     const token = await generateEmailConfirmationToken(user.toJSON());
-    const redirectionUrl = `${process.env.HOST}/confirmation/${token}`
+    const redirectionUrl = `${process.env.HOST}/confirmar/${token}`
     const emailBody = emailConfirmationTemplate({
-        name: user.name,
         redirectionUrl: redirectionUrl
     });
     const info = await Mailer.sendMail({
@@ -111,6 +111,7 @@ export async function sendConfirmationEmail(user) {
 
 /**
  * @param {String} token
+ * @returns {Promise<TokenPair>}
  */
 export async function confirmUserWithToken(token) {
     const tokenFromDb = await getTokenFromDbAndDelete(token);
@@ -119,7 +120,8 @@ export async function confirmUserWithToken(token) {
     }
     const user = await userController.getUser(tokenFromDb.userId);
     await Credential.findOneAndUpdate({ userId: user.id }, { $set: { confirmed: true } });
-    return user;
+    const tokens = await generateTokens(user.toJSON());
+    return tokens;
 }
 
 /**

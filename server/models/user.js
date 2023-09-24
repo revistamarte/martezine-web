@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 import { UserPronouns, UserRole, UserSubscription } from "./enums.js";
 
 const userSchema = new mongoose.Schema({
-    name: {
+    fullname: {
         type: String,
         required: true
     },
-    lastName: {
+    birthday: {
         type: String,
         required: true
     },

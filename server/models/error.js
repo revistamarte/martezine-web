@@ -17,7 +17,9 @@ class HttpError {
             status: this.status,
             message: this.message
         }
-        console.error(message);
+        if (status == 500) {
+            console.error(message);
+        }
     }
 
     /** @type {Number} */

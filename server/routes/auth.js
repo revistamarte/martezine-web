@@ -44,10 +44,8 @@ route.post("/confirmation", async (req, res) => {
 // confirm user with token
 route.post("/confirmation/:token", async (req, res) => {
     try {
-        const confirmedUser = await authController.confirmUserWithToken(req.params.token);
-        return res.json({
-            message: `User '${confirmedUser.email}' was confirmed.`
-        });
+        const tokens = await authController.confirmUserWithToken(req.params.token);
+        return res.json(tokens);
     } catch (e) {
         return new HttpError(e.status, e.message).send(res);
     }

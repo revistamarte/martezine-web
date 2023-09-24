@@ -1,6 +1,33 @@
+@import "../../App.scss";
 @import "../../Colors.scss";
 
 .main-app {
     background-color: $marte-white;
-    min-height: 100vh;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    
+    &.theme-white {
+        background-color: $marte-white;
+    }
+    &.theme-red {
+        background-color: $marte-red;
+    }
+    &.theme-blue {
+        background-color: $marte-blue;
+    }
+    
+    .main-app-content {
+        max-width: 100vw;
+        width: 100vw;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        &.debug {
+            background-color: #ff000025;
+        }
+    }
+
 }

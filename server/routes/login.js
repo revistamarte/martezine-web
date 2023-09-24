@@ -20,12 +20,9 @@ route.post("/login", validateFields, async (req, res) => {
 // signup
 route.post("/signup", validateFields, async (req, res) => {
     try {
-        if (req.body.password !== req.body.repeatPassword) {
-            return new HttpError(400, "Passwords don't match.").send(res);
-        }
         const info = await loginController.signup({
-            name: req.body.name,
-            lastName: req.body.lastName,
+            fullname: req.body.fullname,
+            birthday: req.body.birthday,
             email: req.body.email,
             password: req.body.password,
             pronouns: req.body.pronouns

@@ -1,0 +1,19 @@
+@import "../../../Colors.scss";
+
+svg {
+    fill: black;
+
+    &.theme-white {
+        fill: $marte-red;
+    }
+
+    &.theme-red {
+        fill: $marte-white;
+    }
+
+    &.theme-blue {
+        fill: $marte-white;
+    }
+}
+
+

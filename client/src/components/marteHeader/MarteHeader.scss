@@ -1,15 +1,40 @@
 .marte-header {
-    width: 100vw;
     display: flex;
+    font-size: 20px;
+    align-items: center;
+    padding: 60px 120px;
+    justify-content: space-between;
+
+    .left {
+        flex: 1;
+        ul {
+            justify-content: left;
+        }
+    }
+    .right {
+        flex: 1;
+        ul {
+            justify-content: right;
+        }
+    }
 
     .logo {
-        float: left;
+        img {
+            height: 56px;
+            fill: green;
+        }
     }
-    .links {
-        float: none;
-    }
-    .auth {
-        float: right;
+
+    ul {
+        list-style: none;
+        padding: 0px;
+        margin: 0;
+        display: flex;
+
+        li {
+            display: inline-block;
+            padding: 7px;
+        }
     }
 
 }

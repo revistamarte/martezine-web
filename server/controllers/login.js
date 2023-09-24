@@ -42,8 +42,8 @@ export async function login(model) {
  */
 export async function signup(model) {
     const user = await userController.createUser({
-        name: model.name,
-        lastName: model.lastName,
+        fullname: model.fullname,
+        birthday: model.birthday,
         email: model.email,
         pronouns: model.pronouns,
         subscription: model.subscription,

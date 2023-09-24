@@ -1,0 +1,102 @@
+@import "../../../App.scss";
+@import "../../../Colors.scss";
+
+.cronophobia-edition {
+    width: 100%;
+    background-color: $marte-white;
+    color: $marte-red;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .content {
+        max-width: $main-app-width;
+        display: flex;
+    
+        .thumb {
+            padding: 60px 0 60px 0;
+            position: relative;
+            width: 45%;
+            display: flex;
+            justify-content: right;
+            align-items: center;
+            .edition-number {
+                left: 0;
+                top: 60px;
+                z-index: 2;
+                position: absolute;
+                transform: translate(60px, 0);
+                >div {
+                    position: relative;
+                    padding: 72px 98px;
+                    span {
+                        position: relative;
+                        font-size: 46px;
+                        font-family: "neue-haas-grotesk-display", sans-serif;
+                        font-style: normal;
+                        font-weight: 600;
+                    }
+                    div {
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        background-repeat: no-repeat;
+                        background-position: 0 0;
+                        background-size: auto 100% !important;
+                        opacity: .42;
+                        z-index: -1;
+                    }
+                }
+            }
+            img {
+                max-height: 640px;
+                max-width: 640px;
+                width: 100%;
+                height: fit-content;
+                transform: translate(70px, 0);
+            }
+        }
+        .info {
+            width: 55%;
+            padding: 60px 200px 60px 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 24px;
+
+            h1 {
+                font-family: "neue-haas-grotesk-display", sans-serif;
+                font-style: normal;
+                font-weight: 600;
+                margin: 0;
+                margin-bottom: 20px;
+                line-height: 48px;
+            }
+            p {
+                margin-bottom: 43px;
+            }
+            button {
+                font-size: 24px;
+                font-style: italic;
+                font-weight: 300;
+                background-color: $marte-red;
+                color: $marte-white;
+                padding: 12px 28px 12px 28px;
+                border-radius: 100px;
+                margin-right: 28px;
+            }
+        }
+    }
+
+    .dashed-line {
+        overflow: hidden;
+        width: 100%;
+        height: 30px;
+        background-repeat: repeat-x;
+        background-position: center;
+        background-size: auto 100% !important;
+        margin-bottom: 10px;
+    }
+}

@@ -2,6 +2,8 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import process from "process";
+import childprocess from "child_process";
+import cors from "cors"
 import "dotenv/config.js";
 
 // if (process.env.NODE_ENV !== "production" && process.env.NODE_ENV !== "dev") {
@@ -16,6 +18,12 @@ db.once("open", () => console.log("Connected to database."));
 
 const app = express();
 app.use(express.json());
+if (process.env.NODE_ENV === "local") {
+    app.use(cors({
+        origin: '*',
+        credentials: true
+    }));
+}
 import routes from "./routes/index.js";
 app.use("/api", routes);
 const clientPath = path.join(path.dirname(fileURLToPath(import.meta.url)), "../client/build");
@@ -27,6 +35,6 @@ app.listen(process.env.PORT, () => {
     console.log(`Listening to ${process.env.PORT}...`);
     if (process.argv.indexOf("--open") !== -1) {
         var start = (process.platform == 'darwin'? 'open': process.platform == 'win32'? 'start': 'xdg-open');
-        require('child_process').exec(start + ' http://localhost:8080');
+        childprocess.exec(start + ' http://localhost:8080');
     }
 });

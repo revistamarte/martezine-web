@@ -1,0 +1,50 @@
+@import "../../Colors.scss";
+
+.marte-dialog {
+    background-color: $marte-red;
+    color: $marte-white;
+    padding: 40px;
+    max-width: 700px;
+    width: 100vw;
+    border-radius: 20px;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0 25px 0;
+        user-select: none;
+        .titles {
+            .title {
+                font-size: 26px;
+                font-weight: 400;
+                font-style: normal;
+            }
+            .subtitle {
+                font-size: 18px;
+                font-weight: 400;
+                font-style: normal;
+            }
+        }
+        .close {
+            cursor: pointer;
+        }
+    }
+
+}
+
+.warning {
+    background-color: $marte-white;
+    color: $marte-red;
+    padding: 17px 40px;
+    transform: translate(0, 15px);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px 20px 0 0;
+    .clickable {
+        color: $marte-red;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
