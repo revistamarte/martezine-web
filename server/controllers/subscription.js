@@ -38,6 +38,18 @@ async function getUserSubscriptions(userId) {
 }
 
 /**
+ * @param {String} userId
+ */
+async function getUserSubscriptionHistory(userId) {
+    if (!isValidId(userId)) throw new HttpError(400, "Invalid user ID.");
+    const subscriptions = await Subscription.find({ userId: userId }).sort({ subscribedSince: -1 });
+    if (subscriptions == null || subscriptions.length == 0) {
+        throw new HttpError(404, "No subscriptions history found for this user ID.");
+    }
+    return subscriptions;
+}
+
+/**
  * @param {SubscriptionModel} model
  */
 async function createSubscription(model) {
@@ -75,6 +87,7 @@ const editionController = {
     getAllSubscriptions,
     getSubscription,
     getUserSubscriptions,
+    getUserSubscriptionHistory,
     createSubscription,
     createSubscriptions
 };

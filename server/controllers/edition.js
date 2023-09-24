@@ -18,7 +18,9 @@ async function getAllEditions() {
  */
 async function getEdition(id) {
     const edition = isValidId(id) ? await Edition.findById(id) : await Edition.find({ editionId: id });
-    if (edition == null) throw new HttpError(404, "Edition not found.");
+    if (edition == null || (edition instanceof Array && edition.length == 0)) {
+        throw new HttpError(404, "Edition not found.");
+    }
     return edition;
 }
 

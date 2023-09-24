@@ -18,6 +18,26 @@ router.get("/", authenticateToken, async (req, res) => {
     }
 });
 
+// Getting all for the current user
+router.get("/me", authenticateToken, async (req, res) => {
+    try {
+        const subscriptions = await subscriptionController.getUserSubscriptions(req.user.id);
+        res.json(subscriptions);
+    } catch (e) {
+        return new HttpError(e.status, e.message).send(res);
+    }
+});
+
+// Getting history for the current user
+router.get("/me/history", authenticateToken, async (req, res) => {
+    try {
+        const subscriptions = await subscriptionController.getUserSubscriptionHistory(req.user.id);
+        res.json(subscriptions);
+    } catch (e) {
+        return new HttpError(e.status, e.message).send(res);
+    }
+});
+
 // Getting one
 router.get("/:id", authenticateToken, async (req, res) => {
     try {
@@ -34,10 +54,23 @@ router.get("/:id", authenticateToken, async (req, res) => {
 // Getting all by user id
 router.get("/user/:userId", authenticateToken, async (req, res) => {
     try {
-        if (!req.isAdmin && req.params.userId != req.user.id) {
+        if (!req.isAdmin) {
             return res.sendStatus(403);
         }
         const subscriptions = await subscriptionController.getUserSubscriptions(req.params.userId);
+        res.json(subscriptions);
+    } catch (e) {
+        return new HttpError(e.status, e.message).send(res);
+    }
+});
+
+// Getting history by user id
+router.get("/user/:userId/history", authenticateToken, async (req, res) => {
+    try {
+        if (!req.isAdmin) {
+            return res.sendStatus(403);
+        }
+        const subscriptions = await subscriptionController.getUserSubscriptionHistory(req.params.userId);
         res.json(subscriptions);
     } catch (e) {
         return new HttpError(e.status, e.message).send(res);
