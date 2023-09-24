@@ -16,7 +16,7 @@ export function token(refreshToken) {
 }
 
 export function confirmation(token) {
-    return axios.post(globalConfig.apiUrl + "/confimation/" + token);
+    return axios.post(globalConfig.apiUrl + "/confirmation/" + token);
 }
 
 export function sendConfirmation(email) {

@@ -7,9 +7,10 @@ import Home from "../home/Home";
 import Editions from "../editions/Editions";
 import Subscribe from "../subscribe/Subscribe";
 import About from "../about/About";
+import NotFound from "../notFound/NotFound";
+import Confirm from "../confirm/Confirm";
 
 import "./MainApp.scss";
-import NotFound from "../notFound/NotFound";
 
 function MainApp() {
     const { theme } = useContext(AppContext);
@@ -23,6 +24,7 @@ function MainApp() {
                     <Route path="/edicoes" element={<Editions />} />
                     <Route path="/assinar" element={<Subscribe />} />
                     <Route path="/sobre" element={<About />} />
+                    <Route path="/confirmar/:token" element={<Confirm />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <MarteFooter />

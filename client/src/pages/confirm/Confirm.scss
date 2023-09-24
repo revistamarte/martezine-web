@@ -1,0 +1,23 @@
+@import "../../Colors.scss";
+
+.marte-confirm {
+    padding-left: 128px;
+    padding-right: 128px;
+    color: $marte-white;
+
+    .title {
+        font-family: "neue-haas-grotesk-display", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        font-size: 40px;
+    }
+
+    .subtitle {
+        font-size: 24px;
+        font-weight: 500;
+
+        a {
+            color: $marte-red;
+        }
+    }
+}

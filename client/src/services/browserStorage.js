@@ -23,9 +23,14 @@ export async function getAccessToken() {
     if (tokenObj == null) return null;
     if (tokenObj.expiration <= Date.now()) {
         const refreshToken = getRefreshToken();
-        const tokens = (await authService.token(refreshToken)).data;
-        saveAccessToken(tokens.accessToken);
-        return tokens.accessToken;
+        try {
+            const tokens = (await authService.token(refreshToken)).data;
+            saveAccessToken(tokens.accessToken);
+            saveRefreshToken(tokens.refreshToken);
+            return tokens.accessToken;
+        } catch (e) {
+            removeTokens();
+        }
     }
     return tokenObj.token;
 }
