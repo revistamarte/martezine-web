@@ -18,7 +18,7 @@ function SolitudeEdition() {
                             <span>{editions.solitude.edition}</span>
                         </div>
                     </div>
-                    <img src={thumbImage} />
+                    <img src={thumbImage} alt="solitude" />
                 </div>
                 <div className="info">
                     <div>

@@ -18,7 +18,7 @@ function CronophobiaEdition() {
                             <span>{editions.cronophobia.edition}</span>
                         </div>
                     </div>
-                    <img src={thumbImage} />
+                    <img src={thumbImage} alt="cronofobia" />
                 </div>
                 <div className="info">
                     <div>

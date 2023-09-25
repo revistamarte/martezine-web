@@ -3,7 +3,6 @@ import AppContext from "../../contexts/App.context";
 import AppTheme from "../../constants/appTheme";
 
 import "./Home.scss";
-import image from "../../assets/images/conversinhas-white.png";
 import MarteEditions from "../../components/marteEditions/MarteEditions";
 
 function Home() {

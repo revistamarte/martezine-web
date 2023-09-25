@@ -9,11 +9,7 @@ import mail from "../../assets/icons/mail-icon.png";*/
 import { useContext } from 'react';
 import AppContext from '../../contexts/App.context';
 
-
-import "./MarteFooter.scss"
-
-
-
+import "./MarteFooter.scss";
 
 function MarteFooter() {
     const {theme} = useContext(AppContext);
@@ -45,13 +41,13 @@ function MarteFooter() {
                     </span>
                 </div>
                 <div className='social-logos'>
-                    <a href='https://br.pinterest.com/revistamarte/' target="_blank">
+                    <a href='https://br.pinterest.com/revistamarte/'>
                         <button><PinterestIcon/></button>
                     </a>
-                    <a href='https://www.instagram.com/marte.zine/' target="_blank">
+                    <a href='https://www.instagram.com/marte.zine/'>
                         <button><InstagramIcon/></button>
                     </a>
-                    <a href='https://www.youtube.com/watch?v=z7rxl5KsPjs' target="_blank">
+                    <a href='https://www.youtube.com/watch?v=z7rxl5KsPjs'>
                         <button><MailIcon/></button>
                     </a>
                     

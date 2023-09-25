@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import validator from 'validator';
 import MarteDialog from '../../marteDialog/MarteDialog';
-import authService from '../../../services/auth';
 
 import "./ResetDialog.scss";
 

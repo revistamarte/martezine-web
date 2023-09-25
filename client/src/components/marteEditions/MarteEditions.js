@@ -12,7 +12,7 @@ function MarteEditions() {
             <div className="header">
                 <div>
                     <span>nossas</span>
-                    <img src={redStar}></img>
+                    <img src={redStar} alt="marte star" />
                     <span>edições</span>
                 </div>
             </div>

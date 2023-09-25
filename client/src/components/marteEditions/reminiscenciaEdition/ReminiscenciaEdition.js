@@ -18,7 +18,7 @@ function ReminiscenciaEdition() {
                             <span>{editions.reminiscencia.edition}</span>
                         </div>
                     </div>
-                    <img src={thumbImage} />
+                    <img src={thumbImage} alt="reminiscencia" />
                 </div>
                 <div className="info">
                     <div>

@@ -25,7 +25,7 @@ const subscriptionSchema = new mongoose.Schema({
 subscriptionSchema.method("toJSON", function () {
     const object = this.toObject();
     return {
-        _id: object._id,
+        id: object._id,
         userId: object.userId,
         editionId: object.editionId,
         subscribedSince: object.subscribedSince,
